@@ -1,0 +1,67 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                      <strong>{{dialogTitle}}</strong></div>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+      <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="accesoForm" >
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Nro Documento</mat-label>
+                        <input matInput formControlName="nroDocumento" readonly>
+                        <mat-icon matSuffix>contacts</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Nombre de usuario</mat-label>
+                        <input matInput formControlName="email" readonly>
+                        <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput formControlName="password" required [type]="tyePass">
+                        <mat-icon matSuffix  (click)="changePass()" style="cursor: pointer;">remove_red_eye</mat-icon>
+                   
+                        <mat-error *ngIf="accesoForm.get('password').hasError('required')">
+                        Contraseña es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Repetir Contraseña</mat-label>
+                        <input (blur)="validaPass()" matInput formControlName="repassword" required [type]="tyeRePass">
+                        <mat-icon matSuffix (click)="changeRepass()" style="cursor: pointer;">remove_red_eye</mat-icon>
+                        <mat-error *ngIf="accesoForm.get('repassword').hasError('required')">
+                            Repetir Contraseña es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" style="align-items: center;">
+                  <div class="example-button-row" >
+                    <button mat-raised-button color="primary"  [disabled]="!accesoForm.valid"
+                      (click)="confirmAdd()">{{txtButton}}</button>
+                    <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+        </form>
+      </div>  
+</div>

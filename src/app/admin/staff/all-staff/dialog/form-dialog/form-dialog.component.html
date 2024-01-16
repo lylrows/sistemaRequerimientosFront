@@ -1,0 +1,167 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <img [src]='staff.img' alt="avatar" width="50" height="50">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 font-17">
+            {{dialogTitle}}</div>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="staffForm" (ngSubmit)="submit">
+      <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+              <mat-label>Perfil</mat-label>
+                  <mat-select formControlName="idPerfil" required>
+                  <mat-icon matSuffix>face</mat-icon>
+                  <mat-option [value]="tipo.valorEntero" *ngFor="let tipo of tiposperfiles">
+                    {{tipo.nombre}}
+                  </mat-option>                 
+                </mat-select>
+                <mat-error *ngIf="staffForm.get('idPerfil').hasError('required')">
+                  Perfil es requerido
+                  </mat-error>
+          </mat-form-field>
+          </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+        <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Empresa</mat-label>
+                <mat-select formControlName="idEmpresa" required>
+                <mat-icon matSuffix>business_center</mat-icon>
+                <mat-option  [value]="emp.id" *ngFor="let emp of empresas">
+                  {{emp.razonSocial}}
+                </mat-option>              
+              </mat-select>
+              <mat-error *ngIf="staffForm.get('idEmpresa').hasError('required')">
+                Empresa es requerido
+                </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Nombres</mat-label>
+            <input matInput formControlName="nombres" required>
+            <mat-icon matSuffix>text_format</mat-icon>
+            <mat-error *ngIf="staffForm.get('nombres').hasError('required')">
+              Nombre es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Apellidos</mat-label>
+            <input matInput formControlName="apellidos" required>
+            <mat-icon matSuffix>text_format</mat-icon>
+            <mat-error *ngIf="staffForm.get('apellidos').hasError('required')">
+              Apellidos es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>e-mail</mat-label>
+            <input matInput formControlName="email" required>
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="staffForm.get('email').hasError('required')">
+              e-mail es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Tipo de Documento</mat-label>
+            <mat-select formControlName="tipoDocumento" required (selectionChange)="selectDocument($event)">
+              <mat-icon matSuffix>file_copy</mat-icon>
+              <mat-option  [value]="doc.valorEntero" *ngFor="let doc of documentos" required>
+                {{doc.nombre}}
+              </mat-option>              
+            </mat-select>
+            <mat-error *ngIf="staffForm.get('tipoDocumento').hasError('required')">
+              Tipo de Documento es requerido
+              </mat-error>          
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>N° Documento</mat-label>
+            <input matInput formControlName="nroDocumento" [type]="tipoDoc" [maxlength]="maxLen">
+            <mat-icon matSuffix>contacts</mat-icon>           
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <input matInput formControlName="direccion" required>
+            <mat-icon matSuffix>location_on</mat-icon>
+            <mat-error *ngIf="staffForm.get('direccion').hasError('required')">
+              Dirección es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Telefono</mat-label>
+            <input matInput formControlName="telefono" required>
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="staffForm.get('telefono').hasError('required')">
+              Telefono es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+            <mat-label>Celular</mat-label>
+            <input matInput formControlName="celular" required>
+            <mat-icon matSuffix>phonelink_ring</mat-icon>
+            <mat-error *ngIf="staffForm.get('celular').hasError('required')">
+              Celular es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" > 
+            <app-file-upload formControlName="uploadFile"></app-file-upload>  
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+          <mat-form-field class="example-full-width mb-3" appearance="outline">
+              <mat-label>Activo</mat-label>
+              <mat-select formControlName="esActivo">
+                  <mat-icon matSuffix>notifications_active</mat-icon>                            
+                  <mat-option [value]=1 >
+                     SI
+                  </mat-option>    
+                  <mat-option [value]=0>
+                      NO
+                   </mat-option>                            
+              </mat-select>
+              <mat-error *ngIf="staffForm.get('esActivo').hasError('required')">
+                  Seleccione una opción
+              </mat-error>
+          </mat-form-field>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">        
+            <mat-checkbox formControlName="isGerente" class="example-margin" (change)="staffForm.get('isGerente')?.setValue($event.checked)">Gerente
+            </mat-checkbox>        
+    </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+        <img [src]="staffService.imgTemp" alt="avatar" width="150" height="150">
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" style="align-items: center;">
+          <div class="example-button-row" >
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!staffForm.valid"
+              (click)="confirmAdd()">Grabar</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

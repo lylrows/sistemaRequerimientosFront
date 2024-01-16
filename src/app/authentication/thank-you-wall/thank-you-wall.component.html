@@ -1,0 +1,85 @@
+<section class="">
+    <div class="content-block" style="overflow-x: hidden;">
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="header2">                        
+                            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8  mb-2">
+                                <div class="text-container">
+                                    <h1>Muro de saludos del Día de la Madre</h1>
+                                    <h5>Escribe un mensaje a la familia Efitec</h5>
+                                </div>                               
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4  mb-2">
+                                <img src="assets/images/logo-efitec2.png">
+                            </div>                               
+                    </div>
+                    <div class="body">
+                        <form class="m-4" [formGroup]="thankYouForm" (ngSubmit)="onSubmit()"> 
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                                    <mat-form-field class="example-full-width mb-3" appearance="outline">                                        
+                                        <mat-label>Nombre</mat-label>
+                                        <input 
+                                        matInput 
+                                        formControlName="name"  
+                                        type="text"                                        
+                                        style="text-transform: uppercase;"
+                                        (input)="onNameInputChange($event)"
+                                        >
+                                        <mat-icon matSuffix>person</mat-icon>  
+                                        <mat-error *ngIf="thankYouForm.get('name').touched && thankYouForm.get('name').hasError('required')">
+                                        Nombre es requerido
+                                        </mat-error> 
+                                    </mat-form-field>                                    
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                                    <mat-form-field class="example-full-width mb-3" appearance="outline">                                        
+                                        <mat-label>Mensaje</mat-label>
+                                        <textarea matInput formControlName="message"  type="text" rows="2" minlength="50" maxlength="250" required minlength maxlength></textarea>
+                                        <mat-icon matSuffix>message</mat-icon>  
+                                        <mat-error *ngIf="thankYouForm.get('message').touched && thankYouForm.get('message').hasError('required')">
+                                            Mensaje es requerido
+                                        </mat-error> 
+                                        <mat-error *ngIf="thankYouForm.get('message').touched && thankYouForm.get('message').hasError('minlength')">
+                                            Mínimo 50 caracteres requeridos
+                                        </mat-error> 
+                                        <mat-error *ngIf="thankYouForm.get('message').touched && thankYouForm.get('message').hasError('maxlength')">
+                                            Máximo 250 caracteres
+                                        </mat-error> 
+                                    </mat-form-field>                                                            
+                                </div>
+                                <mat-label> <strong>Adjuntar foto</strong> </mat-label>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" >
+                                <app-file-upload formControlName="uploadFile" (change)="capturarFile($event)"></app-file-upload>
+                                </div>   
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" style="align-items: center; text-align: center">
+                                    <button class="btn-space" type="submit" mat-raised-button color="primary" [disabled]="!thankYouForm.valid">Enviar mensaje</button>
+                                </div>
+                            </div>                           
+                        </form>
+
+                    </div>
+                </div>
+                   
+                <div class="card muro">                                                   
+                    <div class="message-container">
+                        <div class="message" *ngFor="let msg of messages; let i = index">
+                          <div class="post-it" [style.backgroundColor]="colors[i % colors.length]">
+                            <img class="img2" [src]="msg.urlFile" alt="Foto de celebración" />
+                            <div class="message-overlay">
+                            <h4 style="text-align: center;">{{msg.name}}</h4>
+                            <p style="text-align: center;">{{msg.message}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                </div>
+            </div>                                     
+        </div>
+    </div>
+</section>
+

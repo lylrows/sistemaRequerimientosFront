@@ -1,0 +1,123 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                        {{dialogTitle}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="parametroDetForm" (ngSubmit)="submit">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Código</mat-label>
+                        <input matInput formControlName="codigo" required onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="5">
+                        <mat-icon matSuffix>code</mat-icon>
+                        <mat-error *ngIf="parametroDetForm.get('codigo').hasError('required')">
+                            Código es requerido
+                        </mat-error>
+                    </mat-form-field>  
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" required>
+                        <mat-icon matSuffix>perm_identity</mat-icon>
+                        <mat-error *ngIf="parametroDetForm.get('nombre').hasError('required')" maxlength="50">
+                            Nombre es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Parametro</mat-label>
+                        <mat-select formControlName="idParametro" required (selectionChange)="onChangeParametro($event)">                         
+                            <mat-option [value]="pp.id" *ngFor="let pp of parametrosList">
+                               {{pp.nombre}}
+                            </mat-option>                                                        
+                        </mat-select>
+                        <mat-error *ngIf="parametroDetForm.get('esActivo').hasError('required')">
+                            Seleccione una opción
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Valor</mat-label>
+                        <input matInput formControlName="valor" maxlength="150">
+                        <mat-icon matSuffix>poll</mat-icon>                        
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Valor Entero</mat-label>
+                        <input matInput formControlName="valorEntero" type="number">
+                        <mat-icon matSuffix>plus_one</mat-icon>
+                        <mat-error *ngIf="parametroDetForm.get('valorEntero').hasError('required')">
+                            Nombre es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Valor Auxiliar</mat-label>
+                        <input matInput formControlName="valorAuxiliar" maxlength="150">
+                        <mat-icon matSuffix>exposure</mat-icon>
+                        <mat-error *ngIf="parametroDetForm.get('valorAuxiliar').hasError('required')">
+                            Nombre es requerido
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Parametro Padre</mat-label>
+                        <mat-select formControlName="idParametroPadre" required>     
+                            <mat-option [value]=-1 >
+                                Sin Padre
+                             </mat-option>                        
+                            <mat-option  [value]="pp.id" *ngFor="let pp of parametrosPadres">
+                                {{pp.nombre}}
+                            </mat-option>                                                  
+                        </mat-select>
+                        <mat-error *ngIf="parametroDetForm.get('esActivo').hasError('required')">
+                            Seleccione una opción
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Activo</mat-label>
+                        <mat-select formControlName="esActivo" required>                         
+                            <mat-option [value]=1 >
+                               SI
+                            </mat-option>    
+                            <mat-option [value]=0>
+                                NO
+                             </mat-option>                            
+                        </mat-select>
+                        <mat-error *ngIf="parametroDetForm.get('esActivo').hasError('required')">
+                            Seleccione una opción
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-button-row">
+                        <button mat-raised-button color="primary" [type]="submit" [disabled]="!parametroDetForm.valid"
+                            [mat-dialog-close]="1" (click)="confirmAdd()">Guardar</button>
+                        <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

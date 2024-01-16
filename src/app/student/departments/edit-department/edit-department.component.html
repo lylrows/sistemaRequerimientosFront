@@ -1,0 +1,282 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Mejora Detalle</h2>
+
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Empresa</mat-label>
+                          <mat-select formControlName="empresa" [disabled]="true"  (selectionChange)="selectEmpresa($event.value)">
+                            <mat-icon matSuffix>file_copy</mat-icon>
+                            <mat-option  [value]="doc.idEmpresa" *ngFor="let doc of sistemasList" >
+                              {{doc.razonSocial}}
+                            </mat-option>              
+                          </mat-select>                                                                         
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Sistema</mat-label>
+                          <mat-select [disabled]="editBool" formControlName="sistema" >
+                            <mat-option  [value]="sis.idSistema" *ngFor="let sis of sistemas" >
+                              {{sis.nombreSistema}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="departmentForm.get('sistema').hasError('')">
+                            sistema es requerido
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Tipo</mat-label>
+                          <mat-select [disabled]="editBool"  formControlName="tipo" >
+                            <mat-option  [value]="sis.valorEntero" *ngFor="let sis of tipoMejora" >
+                              {{sis.nombre}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="departmentForm.get('tipo').hasError('')">
+                            tipo es requerido
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Prioridad</mat-label>
+                          <input matInput [readonly]="true"   formControlName="prioridad"  type="number" min="0">
+                          <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>  
+                          <mat-error *ngIf="departmentForm.get('prioridad').hasError('')">
+                            Prioridad es requerido
+                          </mat-error>
+                          <mat-error *ngIf="departmentForm.get('prioridad').invalid">
+                            Prioridad no puede ser negativo
+                          </mat-error>                         
+                      </mat-form-field>
+                      </div>
+                
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Titulo</mat-label>
+                          <input matInput [readonly]="editBool"   formControlName="titulo" >
+                          <mat-icon matSuffix>person</mat-icon>
+                          <mat-error *ngIf="departmentForm.get('titulo').hasError('')">
+                            titulo es requerido
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Estado</mat-label>
+                          <mat-select [disabled]="editBool"  formControlName="estado" (selectionChange)="onChangeEstado($event)">
+                            <mat-option  [value]="est.valorEntero" *ngFor="let est of estados" >
+                              {{est.nombre}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="departmentForm.get('estado').hasError('')">
+                            estado es requerido
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Horas estimadas</mat-label>
+                            <input matInput [readonly]="true"   formControlName="horasEstimadas"  type="number">
+                            <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Usuario que aprueba</mat-label>
+                        <mat-select [disabled]="editBool" formControlName="idUsuarioAsignado" value="selected">
+                          <mat-option [value]="usu.id" *ngFor="let usu of usuariosByEmpresa">
+                           {{usu.nombres}} {{usu.apellidos}}
+                          </mat-option>
+                      </mat-select>                                   
+                      </mat-form-field>
+                  </div>                      
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-full-width mb-3" appearance="outline">
+                      <mat-label><strong>Descripción de la mejora</strong></mat-label>
+                      <ckeditor [editor]="Editor2" [data]="departmentService.mejoraDTO.mejora.descripcion" [disabled]="editBool"  formControlName="descripcion"></ckeditor>
+                    </div>
+                  </div>   
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" [hidden]="editBool">
+                    <button class="btn-space" mat-raised-button (click)="editarMejora()" type="button"
+                      color="primary">Grabar Mejora</button>
+                    <button mat-raised-button color="warn" type="button" (click)="cancelar()" mat-button>Cancelar</button>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" [hidden]="actividades.length == 0">
+                    <mat-label><strong>Actividades</strong></mat-label>
+                    <table mat-table [dataSource]="actividades" class="w-100 example-full-width mb-3">
+                      <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef>Actividad</th>
+                        <td mat-cell *matCellDef="let actividad">{{ actividad.descripcion }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="horasActividad">
+                        <th mat-header-cell *matHeaderCellDef>Horas de actividad</th>
+                        <td mat-cell *matCellDef="let actividad">{{ actividad.horasActividad }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="fechaActividad">
+                        <th mat-header-cell *matHeaderCellDef>Fecha de actividad</th>
+                        <td mat-cell *matCellDef="let actividad">{{ actividad.fechaActividad | date:'dd/MM/yyyy' }}</td>
+                      </ng-container>
+                      <!-- <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>Editar</th>
+                        <td mat-cell *matCellDef="let actividad"> <button mat-icon-button (click)="editActividad(actividad)" [disabled]="editBool">
+                          <mat-icon [ngClass]="{'mat-primary': !editBool, 'mat-disabled': editBool}">edit</mat-icon>  </button></td>
+                      </ng-container> -->
+                      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+                    </table>
+                  </div> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" [hidden]="actividades.length > 0">
+                    <mat-label><strong>Actividades</strong></mat-label>
+                    <p>Sin registros</p>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-label><strong>Adjuntos</strong></mat-label>
+                    <ul class="horizontal-list" style=" list-style: none; padding: 0;">
+                      <li *ngFor="let image of departmentService.mejoraDTO.mejoraArchivos" style="display: inline-block; margin-right: 10px; cursor: pointer;">
+                        <img src="{{ image.urlArchivo }}" width="150" height="150" (click)="openModal(image)">
+                        <!-- <button mat-icon-button 
+                        (click)="deleteImage(image)" [disabled]="editBool">
+                          <mat-icon [ngClass]="{'mat-primary': !editBool, 'mat-disabled': editBool}">delete</mat-icon>
+                        </button> -->
+                      </li>
+                      <li *ngIf="departmentService.mejoraDTO.mejoraArchivos.length == 0">
+                        <p>Sin adjuntos</p>
+                      </li>
+                    </ul>
+                  </div>
+                           
+                </div>
+              </div>
+              <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Department</mat-label>
+                  <mat-select formControlName="dName" >
+                    <mat-option [value]="'mechanical'">
+                      Mechanical
+                    </mat-option>
+                    <mat-option [value]="'science'">
+                      Science
+                    </mat-option>
+                    <mat-option [value]="'mathematics'">
+                      Mathematics
+                    </mat-option>
+                    <mat-option [value]="'computer'">
+                      Computer
+                    </mat-option>
+                    <mat-option [value]="'civil'">
+                      Civil
+                    </mat-option>
+                    <mat-option [value]="'automobile'">
+                      Automobile
+                    </mat-option>
+                    <mat-option [value]="'management'">
+                      Management
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="departmentForm.get('dName').hasError('')">
+                    Select Any Department
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Head Of Department</mat-label>
+                    <input matInput formControlName="hod" >
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="departmentForm.get('hod').hasError('')">
+                      HOD name 
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone">
+                    <mat-icon matSuffix>phone</mat-icon>
+                    <mat-error *ngIf="departmentForm.get('phone').hasError('')">
+                      Phone is 
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" >
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error
+                      *ngIf="departmentForm.get('email').hasError('') || departmentForm.get('email').touched">
+                      Please enter a valid email address
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Department Start Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="sYear" >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="departmentForm.get('sYear').hasError('')">
+                      Please select date
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Student Capacity</mat-label>
+                    <input matInput formControlName="sCapacity" >
+                    <mat-icon matSuffix>group</mat-icon>
+                    <mat-error *ngIf="departmentForm.get('sCapacity').hasError('')">
+                      Student Capacity is 
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Details</mat-label>
+                    <textarea matInput formControlName="details"></textarea>
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" [hidden]="departmentService.mejoraDTO.mejora.idEstado == 5">
+                  <button class="btn-space" mat-raised-button (click)="editar()" type="button"
+                    color="primary">Editar Mejora</button>
+                  <button mat-raised-button color="warn" type="button" (click)="cancelar()" mat-button>Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,257 @@
+<section class="content">
+  <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+          <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+          </app-breadcrumb>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <mat-tab-group>
+                  <mat-tab>
+                      <ng-template mat-tab-label>
+                          <i class="material-icons-two-tone psr-3">list_alt</i>
+                          Tickets
+                      </ng-template>
+                      <div class="mt-5">
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="card">
+                                  <div class="body">
+                                      <div class="table-responsive" >
+                                          <div class="materialTableHeader" fxLayout="row" fxLayoutWrap fxLayoutAlign="center center">
+                                              <div fxFlex="100%">
+                                                <ul class="header-buttons-left ml-0" fxLayout="row" fxLayoutAlign="start center">
+                                                  
+                                                    <li fxFlex="20%" class="dropdown m-l-5">
+                                                      
+                                                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                                        <input placeholder="Buscar" type="text" #filterParameter class="browser-default search-field"
+                                                          aria-label="Search box" (keyup)="buscar($event)" >
+                                                        
+                                                      </li>
+                                                      
+                                                      <li fxFlex="15%" class="m-l-5">
+                                                        
+                                                        <div class="export-button m-l-5" matTooltip="AGREGAR">
+                                                          <button mat-mini-fab color="primary" (click)="addNew()">
+                                                            <mat-icon class="col-white">add</mat-icon>
+                                                          </button>
+                                                        </div>
+                                                      
+                                                      </li>
+                                                      <li fxFlex="15%" class="m-l-5">
+                                                        <div class="export-button m-l-5" matTooltip="RECARGAR">
+                                                          <button mat-mini-fab color="primary" (click)="refresh()">
+                                                            <mat-icon class="col-white">refresh</mat-icon>
+                                                          </button>
+                                                        </div>
+                                                      </li>
+                                                      
+                                                      <li  fxFlex="30%"  class="dropdown m-l-5" style="padding-left: 10px;">
+                                                        
+                                                        <form [formGroup]="filterForms">
+                                                          <li class="dropdown m-l-5" style="padding-left: 10px;">
+                                                          <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                                                            <mat-label>Empresa</mat-label>
+                                                            <mat-select formControlName="idEmpresa"  (selectionChange)="selectEmpresa($event)">
+                                                              <mat-icon matSuffix>file_copy</mat-icon>
+                                                              <mat-option *ngIf="users.isGerente" [value]="-1">Todos</mat-option>
+                                                              <mat-option  [value]="sis.id" *ngFor="let sis of listaEmpresas" >
+                                                                {{sis.razonSocial}}
+                                                              </mat-option>              
+                                                            </mat-select>                                                                         
+                                                          </mat-form-field>  
+                                                        </li>
+                                                        <li class="dropdown m-l-5" style="padding-left: 10px;">
+                                                          <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                                                            <mat-label>Sistema</mat-label>
+                                                            <mat-select formControlName="idSistema"  (selectionChange)="selectSistema($event)">
+                                                              <mat-icon matSuffix>file_copy</mat-icon>
+                                                              <mat-option  [value]="sis.idSistema" *ngFor="let sis of sistemas" >
+                                                                {{sis.nombreSistema}}
+                                                              </mat-option>              
+                                                            </mat-select>                                                                         
+                                                          </mat-form-field>  
+                                                        </li>
+                                                        <li class="dropdown m-l-5" style="padding-left: 10px;" [hidden]="filterForms.get('idSistema')?.value ==''">
+                                                          <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                                                            <mat-label>Estado de ticket</mat-label>
+                                                            <mat-select formControlName="idEstado"  (selectionChange)="selectEstado($event)">
+                                                              <mat-icon matSuffix>file_copy</mat-icon>
+                                                              <mat-option  [value]="est.nombre" *ngFor="let est of estados" >
+                                                                {{est.nombre}}
+                                                              </mat-option>              
+                                                            </mat-select>                                                                         
+                                                          </mat-form-field>    
+                                                        </li>                                                              
+                                                        </form>
+                                                      </li>
+
+                                                                                                                  
+                                                      
+                                                      <li  fxFlex="30%"  class="dropdown" [hidden]="nivelSoporte == ''" style="padding-left:10px ;">
+                                                        
+                                                        <h2>
+                                                          <strong>Nivel de soporte :{{nivelSoporte}}</strong></h2>
+                                                        
+                                                      </li>
+                                                    
+                                                </ul>
+                                                <div class="col-4" hidden>
+                                                    <ul class="header-buttons">
+                                                      <li>
+                                                        <div class="export-button m-l-10" matTooltip="XLSX">
+                                                          <img src="assets/images/icons/xlsx.png" alt=""
+                                                              />
+                                                        </div>
+                                                      </li>
+                                                      <li>
+                                                        <div class="export-button m-l-10" matTooltip="CSV">
+                                                          <img src="assets/images/icons/csv.png" alt=""  />
+                                                        </div>
+                                                      </li>
+                                                      <li>
+                                                        <div class="export-button m-l-10" matTooltip="JSON">
+                                                          <img src="assets/images/icons/json.png" alt=""
+                                                              />
+                                                        </div>
+                                                      </li>
+                                                      <li>
+                                                        <div class="export-button m-l-10" matTooltip="TXT">
+                                                          <img src="assets/images/icons/txt.png" alt=""  />
+                                                        </div>
+                                                      </li>
+                                                    </ul>                                                      
+                                                </div>                                                    
+                                              </div>    
+                                              <mat-label (click)="toggleAdvancedSearch()" style="cursor: pointer; color: #007bff;"><strong>Búsqueda avanzada</strong> </mat-label>      
+                                              <div fxFlex="100%" [hidden]="!advancedSearchVisible">
+                                                <form class="register-form m-4" [formGroup]="filterAdvancedSearch" >
+                                                  <ul class="header-buttons-left ml-0" fxLayout="row" fxLayoutAlign="start center">
+                                                    <li fxFlex="20%" class="dropdown m-l-5">
+                                                      <mat-form-field appearance="outline">  
+                                                        <mat-label>Fecha inicio</mat-label>
+                                                        <input matInput [matDatepicker]="picker"  formControlName="fechaInicio" [max]="maxDateInicio" (dateChange)="onChangeFechaInicio('fechaInicio')">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker></mat-datepicker>                
+                                                      </mat-form-field>
+                                                    </li>
+                                                    <li fxFlex="20%" class="dropdown m-l-5">
+                                                      <mat-form-field appearance="outline">  
+                                                        <mat-label>Fecha fin</mat-label>
+                                                        <input matInput [matDatepicker]="picker2"  formControlName="fechaFin" [max]="maxDateInicio" (dateChange)="onChangeFechaInicio('fechaFin')">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker2></mat-datepicker>                
+                                                      </mat-form-field>
+                                                    </li>
+                                                    <li fxFlex="20%" class="dropdown m-l-5">
+                                                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                                        <mat-label>Usuario cliente</mat-label>
+                                                            <mat-select formControlName="idUsuarioRegistro" value="selected">
+                                                              <mat-option [value]="usu.email" *ngFor="let usu of usuariosByEmpresa">
+                                                               {{usu.nombres}} {{usu.apellidos}}
+                                                              </mat-option>
+                                                          </mat-select>
+                                                      </mat-form-field>
+                                                    </li>
+                                                    <li fxFlex="15%" class="m-l-5">
+                                                      <div class="export-button m-l-5" matTooltip="BUSCAR">
+                                                        <button mat-mini-fab color="primary" (click)="advancedSearch()">
+                                                          <mat-icon class="col-white">search</mat-icon>
+                                                        </button>
+                                                      </div>
+                                                    </li>
+                                                  </ul>
+                                                </form>
+                                               
+                                              </div>                                      
+                                          </div>
+                                          <table class="table">
+                                              <thead>                                                    
+                                                    <tr>                                                      
+                                                      <th>ID</th>
+                                                      <th>Sistema</th>
+                                                      <th>Soporte asignado</th>
+                                                      <th [hidden]="!users.isGerente">Empresa</th>
+                                                      <th>Estado</th>
+                                                      <th>Ticket</th>
+                                                      <th>Prioridad</th>
+                                                      <th>Fecha de registro</th>
+                                                      <th>Fecha límite de atencion</th>
+                                                      <th>Usuario</th>
+                                                      <th>Detalles</th>
+                                                      <th>Horas</th>
+                                                      <th [hidden]="nivelSoporte == '2'">Asignar</th>
+                                                      <th [hidden]="nivelSoporte == '2'">Descartar ANS</th>
+                                                      <!-- <th>Solución</th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr *ngFor="let pp of incidenciaListaAux  | paginate: { itemsPerPage: items, currentPage: page }" [ngClass]="{'orange-row': isMaxDateReached(pp)}">                                                      
+                                                    <td> {{pp.idTicket}}</td>
+                                                    <td> {{pp.nombreSistema}}</td>
+                                                    <td> {{pp.usuarioAsignado}}</td>
+                                                    <td [hidden]="!users.isGerente"> {{pp.razonSocial}}</td>
+                                                    <td *ngIf="pp.estado=='Pendiente'"> <span class="badge badge-solid-orange">{{pp.estado}}</span></td>
+                                                    <td *ngIf="pp.estado=='Atendido'"> <span class="badge badge-solid-purple">{{pp.estado}}</span></td>
+                                                    <td *ngIf="pp.estado=='Observado'"> <span class="badge badge-solid-red">{{pp.estado}}</span></td>
+                                                    <td *ngIf="pp.estado=='Conforme'"> <span class="badge badge-solid-green">{{pp.estado}}</span></td>
+                                                    <td> {{pp.incidente}}</td>
+                                                    <td *ngIf="pp.prioridad=='Baja'"> <span class="badge badge-solid-green">{{pp.prioridad}}</span></td>
+                                                    <td *ngIf="pp.prioridad=='Media'"> <span class="badge badge-solid-purple">{{pp.prioridad}}</span></td>
+                                                    <td *ngIf="pp.prioridad=='Alta'"> <span class="badge badge-solid-orange">{{pp.prioridad}}</span></td>
+                                                    <td *ngIf="pp.prioridad=='Urgente'"> <span class="badge badge-solid-red">{{pp.prioridad}}</span></td>
+                                                    <td> {{pp.fechaRegistro | date: 'dd/MM/yyyy  HH:mm'}}</td>
+                                                    <td> {{pp.fechaMaximaAtencion | date: 'dd/MM/yyyy HH:mm'}}</td>
+                                                    <td> {{pp.usuarioReg.split('@')[0]}}</td>    
+                                                                                      
+                                                    <td>
+                                                      <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                      (click)="detailParameter(pp)"   
+                                                      >
+                                                          <mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>
+                                                      </button>
+                                                    </td>
+                                                    <td>
+                                                      <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                      (click)="registrarHoras(pp)"   
+                                                      >
+                                                          <mat-icon aria-label="Confirmar" class="col-white">av_timer</mat-icon>
+                                                      </button>
+                                                    </td>
+                                                    
+                                                    <td [hidden]="nivelSoporte == '2'">
+                                                      <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                      (click)="asignarIncidencia(pp)"   
+                                                      >
+                                                          <mat-icon aria-label="Confirmar" class="col-white">assignment</mat-icon>
+                                                      </button>
+                                                    </td>    
+                                                    <td [hidden]="nivelSoporte == '2'">
+                                                      <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                      (click)="descartarAns(pp)"   
+                                                      >
+                                                          <mat-icon aria-label="Confirmar" class="col-white">sync_disabled</mat-icon>
+                                                      </button>
+                                                    </td>                                                       
+                                                  </tr>                                                  
+                                                </tbody>  
+                                          </table>
+                                          <div>
+                                            <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" 
+                                            nextLabel="Siguiente" style="float:left">                                                     
+                                            </pagination-controls>
+                                            <div style="float:left; align-self: flex-end;">Total de elementos: {{incidenciaListaAux.length}}</div>
+                                          </div>
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </mat-tab>
+              </mat-tab-group> 
+          </div>
+      </div>
+    </div>
+</section>
+

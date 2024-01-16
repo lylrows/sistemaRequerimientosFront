@@ -1,0 +1,31 @@
+  <div class="addContainer">
+    <div class="modalHeader">
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="stdForm">
+            <div class="row">
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5">
+                    <label>Subir Archivos</label>
+                    <app-file-upload formControlName="uploadFile"></app-file-upload>
+                  </div>
+                </div>
+              </div>            
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-button-row" style="align-items: center; text-align: center">
+                        <button mat-raised-button color="primary" 
+                            [mat-dialog-close]="1" (click)="confirmAdd()">Guardar</button>
+                        <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+   
+</div>
+  

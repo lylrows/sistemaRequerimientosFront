@@ -1,0 +1,103 @@
+.message-container
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 1rem
+
+.post-it
+  background-color: #f8f9fa
+  border: 1px solid #dee2e6
+  border-radius: 4px
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5)
+  padding: 1rem
+  width: 100%  
+  min-height: 400px
+  position: relative
+  &:before
+    content: ""
+    position: absolute
+    top: -6px
+    left: 50%
+    transform: translateX(-50%)
+    border-bottom: 6px solid #dee2e6
+    border-left: 6px solid transparent
+    border-right: 6px solid transparent
+
+
+h4
+  text-align: center
+  margin-bottom: 0.5rem
+  color: #FFFF00
+  font-family:'Roboto'
+
+p
+  text-align: center
+  font-family: 'Allura'
+  font-weight: bold
+  font-size: 2rem
+  color: #FFFFFF
+
+
+.muro
+    margin-top : 2rem
+    background-image: url('https://img.freepik.com/premium-photo/white-brick-texture-home-office-wallpaper-wall-background_177530-1043.jpg?w=2000')
+    background-size: 100% 100% 
+    background-repeat: no-repeat
+    padding: 2rem
+    border-radius: 4px
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)  
+    min-height: 1132px
+
+.header
+  .text-container
+    margin-right: 20px
+
+  img    
+    height: 80%
+    width: auto
+
+.img2
+  width: 100%
+  max-height: 800px
+  height: auto
+  object-fit: cover
+  border-radius: 4px
+
+.message-overlay
+  position: absolute
+  bottom: 0
+  width: 100%
+  padding: 1rem
+  background-color: rgba(0, 0, 0, 0.5)
+  color: white
+
+$header2-background: #2c3e50
+$header2-color: #ecf0f1
+
+.header2
+  display: flex
+  align-items: center
+  justify-content: space-between
+  background-color: $header2-background
+  padding: 1rem 2rem
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+
+  .text-container
+    h1
+      font-family: 'Roboto', sans-serif
+      font-weight: 700
+      font-size: 2rem
+      color: $header2-color
+      margin-bottom: 0.5rem
+
+    h5
+      font-family: 'Roboto', sans-serif
+      font-weight: 300
+      font-size: 1rem
+      color: lighten($header2-color, 10%)
+      margin-bottom: 0
+
+  .logo-container
+    img
+      max-height: 80px
+      width: auto

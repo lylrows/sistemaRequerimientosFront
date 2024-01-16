@@ -1,0 +1,73 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                        <!-- Agregar Sistemas a :  {{data.razonSocial}} -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content>
+        <form class="register-form m-4"  [formGroup]="horarioForm" >
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="align-items: center; text-align: center">Selección</th>
+                                <th style="align-items: center; text-align: center">Día de Semana</th>
+                                <!-- <th style="align-items: center; text-align: center">Hora Inicio</th>
+                                <th style="align-items: center; text-align: center">Hora Fin</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ss of horarioEmpresa.dias">
+                                <td style="align-items: center; text-align: center"> <mat-checkbox (change)="selection(ss, $event.checked);" 
+                                    [checked]="ss.checked" [ngClass]="'tbl-checkbox'" >
+                                  </mat-checkbox></td>
+                                <td style="align-items: center; text-align: center"> {{ss.dia}}</td>
+                            </tr>                              
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                 <!-- <h6>Time Picker</h6> -->
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Hora Inicio</mat-label>
+                    <input matInput [owlDateTimeTrigger]="time1" [owlDateTime]="time1" formControlName="horaInicio">
+                    <mat-icon matSuffix [owlDateTimeTrigger]="time1" class="date-icon">schedule</mat-icon>
+                    <owl-date-time [pickerType]="'timer'" #time1 ></owl-date-time>
+                </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <!-- <h6>Time Picker</h6> -->
+                   <mat-form-field class="example-full-width mb-3" appearance="outline">
+                       <mat-label>Hora Fin</mat-label>
+                       <input matInput [owlDateTimeTrigger]="time2" [owlDateTime]="time2" formControlName="horaFin">
+                       <mat-icon matSuffix [owlDateTimeTrigger]="time2" class="date-icon">schedule</mat-icon>
+                       <owl-date-time [pickerType]="'timer'" #time2></owl-date-time>
+                   </mat-form-field>
+                   </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-button-row" style="align-items: center; text-align: center">
+                        <button mat-raised-button color="primary" 
+                             (click)="confirmAdd()">Guardar</button>
+                        <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+   
+</div>

@@ -1,0 +1,340 @@
+<!-- <section class="content"> -->
+    <!-- <div class="content-block"> -->
+      
+        <div class="row">
+          <form class="register-form m-4" [formGroup]="filterFormsSoporte" >
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="header">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <mat-form-field  appearance="outline" >
+                      <mat-label>Empresa</mat-label>
+                      <mat-select formControlName="idEmpresa"  (selectionChange)="selectEmpresa($event)">
+                          <mat-icon matSuffix>file_copy</mat-icon>
+                  <!-- <mat-option [value]="-1">Todas la empresas</mat-option> -->
+                        <mat-option  [value]="emp.id" *ngFor="let emp of sistemasListSoporteCliente" >
+                        {{emp.razonSocial}}
+                        </mat-option>              
+                      </mat-select>                                                                         
+                    </mat-form-field>
+                  </div>
+                
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Seleccione año</mat-label>
+                      <mat-select  formControlName="anho">
+                          <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                          {{pp.id}}
+                          </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Mes inicio</mat-label>
+                      <mat-select  formControlName="mesIni">
+                        <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                        {{pp.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Mes fin</mat-label>
+                      <mat-select  formControlName="mesFin">
+                        <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                          {{pp.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                   
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="align-items: center; text-align: center">
+                <button mat-raised-button type="button" color="primary" mat-button (click)="buscar()"
+                                 >Buscar</button>
+               </div> 
+            </div>
+          </form>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <!-- <div class="responsive_table"> -->
+                    
+
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                            <!-- <ng-container matColumnDef="priority">
+                              <th mat-header-cell *matHeaderCellDef> Priority </th>
+                              <td mat-cell *matCellDef="let data; let i = index" 
+                                  [attr.rowspan]="getRowSpan('priority', i)"
+                                  [style.display]="getRowSpan('priority', i) ? '' : 'none'"> {{data.priority}} </td>
+                            </ng-container> -->
+                          
+                            <!-- <ng-container matColumnDef="status">
+                              <th mat-header-cell *matHeaderCellDef> Status </th>
+                              <td mat-cell *matCellDef="let data; let i = index" 
+                                  [attr.rowspan]="getRowSpan('status', i)"
+                                  [style.display]="getRowSpan('status', i) ? '' : 'none'"> {{data.status}} </td>
+                            </ng-container> -->
+                          
+                            <ng-container matColumnDef="date">
+                              <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center"> Mes </th>
+                              <td mat-cell *matCellDef="let data; let i = index" 
+                                  [attr.rowspan]="getRowSpan('date', i)"
+                                  [style.display]="getRowSpan('date', i) ? '' : 'none'" style="align-items: center; text-align: center"> {{data.date}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="indicador">
+                                <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center"> Indicador </th>
+                                <td mat-cell *matCellDef="let data" style="align-items: center; text-align: center"> {{data.indicador}} </td>
+                              </ng-container>
+                          
+                            <ng-container matColumnDef="mejoras">
+                              <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center"> Mejoras </th>
+                              <td mat-cell *matCellDef="let data" style="align-items: center; text-align: center"> {{data.mejoras}} </td>
+                            </ng-container>
+                          
+                            <ng-container matColumnDef="soporte">
+                              <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center"> Soporte </th>
+                              <td mat-cell *matCellDef="let data" style="align-items: center; text-align: center"> {{data.soporte }} </td>
+                            </ng-container>
+                            <!-- | currency -->
+                            <ng-container matColumnDef="errores">
+                              <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center"> Errores </th>
+                              <td mat-cell *matCellDef="let data" style="align-items: center; text-align: center"> {{data.errores}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="garantia">
+                                <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center"> Garantia </th>
+                                <td mat-cell *matCellDef="let data" style="align-items: center; text-align: center"> {{data.garantia}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center"> Total </th>
+                                <td mat-cell *matCellDef="let data" style="align-items: center; text-align: center"> {{data.total}} </td>
+                            </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                <!-- <h2>TICKETS POR TIPIFICACION Y SISTEMAS</h2> -->
+                <style>
+                  table, th, td {
+                    border: 1px solid black;
+                    /* border-collapse: collapse; */
+                  }
+                  #Contenedor1{
+              float: right;
+              width: 100%;
+              }
+              #Contenedor2{
+              float: left;
+              width: 100%;
+              }
+                  </style>
+              <table mat-table [dataSource]="dataSourceTree" class="mat-elevation-z8">
+              
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column display none-->
+                <ng-container matColumnDef="positionA">
+                  <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"> No. </th>
+                  <td mat-cell *matCellDef="let element; let i = index"  [attr.rowspan]="getRowSpan('positionA', i)"
+                  [style.display]="getRowSpan('positionA', i) ? '' : 'none'"> {{element.position}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="No">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">Fecha</th>
+                </ng-container>
+                <ng-container matColumnDef="position1">
+                  <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.position1}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Nu">
+                  <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">Indicadores</th>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="sistema1">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: blue;" [hidden]="contador < 1"><FONT COLOR="white">{{sisUno}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador < 1"> {{element.sistema1}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="sistema2" >
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: red;" [hidden]="contador <= 2"><FONT COLOR="white">{{sisDos}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 2"> {{element.sistema2}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="sistema3">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: green;" [hidden]="contador <= 3"><FONT COLOR="white">{{sisTres}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 3"> {{element.sistema3}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema4">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: violet;" [hidden]="contador <= 4"><FONT COLOR="white">{{sisCuatro}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 4"> {{element.sistema4}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema5">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: orange;" [hidden]="contador <= 5"><FONT COLOR="white">{{sisCinco}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 5"> {{element.sistema5}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema6">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: purple;" [hidden]="contador <= 6"><FONT COLOR="white">{{sisSeis}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 6"> {{element.sistema6}} </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="sistema7">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 70%;" [hidden]="contador <= 7"> {{sisSiete}} </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 7"> {{element.sistema7}} </td>
+                </ng-container> -->
+                <ng-container matColumnDef="total">
+                  <th mat-header-cell *matHeaderCellDef> Total </th>
+                  <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+                </ng-container>
+              
+              
+                <ng-container matColumnDef="sistemaUno">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: blue;" [hidden]="contador < 1"><FONT COLOR="white">{{sisUno}} </FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador < 1"> {{element.sistemaUno}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistemaDos">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: red;" [hidden]="contador <= 2"><FONT COLOR="white">{{sisDos}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 2"> {{element.sistemaDos}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistemaTres">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: green;" [hidden]="contador <= 3"><FONT COLOR="white">{{sisTres}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 3"> {{element.sistemaTres}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistemaCuatro">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: violet;" [hidden]="contador <= 4"><FONT COLOR="white">{{sisCuatro}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 4"> {{element.sistemaCuatro}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistemaCinco">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: orange;" [hidden]="contador <= 5"><FONT COLOR="white">{{sisCinco}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 5"> {{element.sistemaCinco}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistemaSeis">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: purple;" [hidden]="contador <= 6"><FONT COLOR="white">{{sisSeis}}</FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 6"> {{element.sistemaSeis}} </td>
+                </ng-container>
+                <ng-container matColumnDef="totalS">
+                  <th mat-header-cell *matHeaderCellDef> Total </th>
+                  <td mat-cell *matCellDef="let element"> {{element.totalS}} </td>
+                </ng-container>
+              
+
+                <ng-container matColumnDef="sistema21">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: blue;" [hidden]="contador < 1"><FONT COLOR="white">{{sisUno}}</FONT>  </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador < 1"> {{element.sistema21}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema22">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: red;" [hidden]="contador <= 2"><FONT COLOR="white">{{sisDos}}</FONT>  </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 2"> {{element.sistema22}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema23">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: green;" [hidden]="contador <= 3"><FONT COLOR="white">{{sisTres}}</FONT>  </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 3"> {{element.sistema23}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema24">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: violet;" [hidden]="contador <= 4"><FONT COLOR="white">{{sisCuatro}}</FONT>  </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 4"> {{element.sistema24}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema25">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: orange;" [hidden]="contador <= 5"><FONT COLOR="white">{{sisCinco}}</FONT>  </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 5"> {{element.sistema25}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema26">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: purple;" [hidden]="contador <= 6"><FONT COLOR="white">{{sisSeis}}</FONT>  </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 6"> {{element.sistema26}} </td>
+                </ng-container>
+                <ng-container matColumnDef="total2">
+                  <th mat-header-cell *matHeaderCellDef> Total </th>
+                  <td mat-cell *matCellDef="let element"> {{element.total2}} </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="sistema31">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%; background-color: blue;" [hidden]="contador < 1"><FONT COLOR="white">{{sisUno}}</FONT> </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador < 1"> {{element.sistema31}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema32">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: red;" [hidden]="contador <= 2"><FONT COLOR="white">{{sisDos}} </FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 2"> {{element.sistema32}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema33">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: green;" [hidden]="contador <= 3"><FONT COLOR="white">{{sisTres}}</FONT> </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 3"> {{element.sistema33}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema34">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: violet;" [hidden]="contador <= 4"><FONT COLOR="white">{{sisCuatro}}</FONT> </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 4"> {{element.sistema34}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema35">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: orange;" [hidden]="contador <= 5"><FONT COLOR="white">{{sisCinco}}</FONT> </th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 5"> {{element.sistema35}} </td>
+                </ng-container>
+                <ng-container matColumnDef="sistema36">
+                  <th mat-header-cell *matHeaderCellDef style="font-size: 100%;background-color: purple;" [hidden]="contador <= 6"><FONT COLOR="white">{{sisSeis}} </FONT></th>
+                  <td mat-cell *matCellDef="let element" [hidden]="contador <= 6"> {{element.sistema36}} </td>
+                </ng-container>
+                <ng-container matColumnDef="total3">
+                  <th mat-header-cell *matHeaderCellDef> Total </th>
+                  <td mat-cell *matCellDef="let element"> {{element.total3}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="total4">
+                  <th mat-header-cell *matHeaderCellDef>  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.total4}} </td>
+                </ng-container>
+                <!-- Header row first group -->
+                
+                <!-- Header row second group -->
+                <ng-container matColumnDef="header-row-second-group">
+                  <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center" [attr.colspan]=contador> Mejoras </th>
+                </ng-container>
+                <ng-container matColumnDef="header-row-one-group">
+                  <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center" [attr.colspan]=contador> soporte </th>
+                </ng-container>
+                <ng-container matColumnDef="tercero">
+                  <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center" [attr.colspan]=contador> Errores </th>
+                </ng-container>
+                <ng-container matColumnDef="cuarto">
+                  <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center" [attr.colspan]=contador> Garantia </th>
+                </ng-container>
+                <ng-container matColumnDef="quinto">
+                  <th mat-header-cell *matHeaderCellDef style="align-items: center; text-align: center" [attr.colspan]=contador> Total </th>
+                </ng-container>
+              
+                
+              
+                <tr mat-header-row *matHeaderRowDef="['No','Nu', 'header-row-second-group','header-row-one-group','tercero','cuarto','quinto']"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+              </table>
+
+              <table class="table" [hidden]="prueba">
+                <thead>                                                    
+                      <tr>                                                      
+                        <th [hidden]="contador <= 1"><FONT COLOR="blue">{{sisUno1}}=1</FONT></th>
+                        <th [hidden]="contador <= 2"><FONT COLOR="red">{{sisDos2}}=2</FONT></th>
+                        <th [hidden]="contador <= 3"><FONT COLOR="green">{{sisTres3}}=3</FONT></th>
+                        <th [hidden]="contador <= 4"><FONT COLOR="violet">{{sisCuatro4}}=4</FONT></th>
+                        <th [hidden]="contador <= 5"><FONT COLOR="orange">{{sisCinco5}}=5</FONT></th>
+                        <th [hidden]="contador <= 6"><FONT COLOR="purple">{{sisSeis6}}=6</FONT></th>
+                        <!-- <th>{{sisSiete}}=7</th> -->
+                      </tr>
+                  </thead>
+                   
+            </table>
+            
+            </div>
+        </div>
+    <!-- </div> -->
+<!-- </section> -->

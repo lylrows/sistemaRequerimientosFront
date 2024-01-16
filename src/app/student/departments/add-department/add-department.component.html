@@ -1,0 +1,164 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Agregar mejoras</h2>
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Empresa</mat-label>
+                    <mat-select formControlName="empresa" required (selectionChange)="selectEmpresa($event)">
+                      <mat-icon matSuffix>file_copy</mat-icon>
+                      <mat-option  [value]="doc.idEmpresa" *ngFor="let doc of sistemasList" required>
+                        {{doc.razonSocial}}
+                      </mat-option>              
+                    </mat-select>                                                                         
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Sistema</mat-label>
+                    <mat-select formControlName="sistema" required>
+                      <mat-option  [value]="sis.idSistema" *ngFor="let sis of sistemas" required>
+                        {{sis.nombreSistema}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="departmentForm.get('sistema').hasError('required')">
+                      sistema es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo" required>
+                      <mat-option  [value]="sis.valorEntero" *ngFor="let sis of tipoMejora" required>
+                        {{sis.nombre}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="departmentForm.get('tipo').hasError('required')">
+                      tipo es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Prioridad</mat-label>
+                    <input matInput formControlName="prioridad"  type="number" min="0">
+                    <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>  
+                    <mat-error *ngIf="departmentForm.get('prioridad').hasError('required')">
+                      Prioridad es requerido
+                    </mat-error>
+                    <mat-error *ngIf="departmentForm.get('prioridad').invalid">
+                      Prioridad no puede ser negativo
+                    </mat-error>                         
+                </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Titulo</mat-label>
+                    <input matInput formControlName="titulo" required>
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="departmentForm.get('titulo').hasError('required')">
+                      titulo es requerido
+                    </mat-error>
+                  </mat-form-field>
+                </div>              
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" [hidden]="actualiza">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Estado</mat-label>
+                  <mat-select formControlName="estado"    [disabled]="true">
+                    <mat-option  [value]="est.valorEntero" *ngFor="let est of estados" >
+                      {{est.nombre}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="departmentForm.get('estado').hasError('required')">
+                    estado es requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Horas estimadas</mat-label>
+                    <input matInput formControlName="horasEstimadas"  type="number">
+                    <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>                           
+                </mat-form-field>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" [hidden]="actualiza">
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Usuario que aprueba</mat-label>
+                <mat-select  formControlName="idUsuarioAsignado" value="selected">
+                  <mat-option [value]="usu.id" *ngFor="let usu of usuariosByEmpresa">
+                   {{usu.nombres}} {{usu.apellidos}}
+                  </mat-option>
+              </mat-select>                                    
+              </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+            <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Aprobar</mat-label>
+                <mat-select formControlName="aprobado" required>                                      
+                    <mat-option [value]=1 >
+                       SI
+                    </mat-option>    
+                    <mat-option [value]=0>
+                        NO
+                     </mat-option>                            
+                </mat-select>
+            </mat-form-field>
+        </div>
+            </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <mat-label> <strong>Describir mejora</strong> </mat-label>
+                      <ckeditor [editor]="Editor"  data="" formControlName="comentario" required></ckeditor>   
+                      <mat-error *ngIf="departmentForm.get('comentario').hasError('required')">
+                        Describa su mejora
+                      </mat-error>                  
+              </div> 
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <mat-label> <strong>Adjuntar evidencia</strong> </mat-label>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" >
+                          <app-file-upload formControlName="uploadFile" (change)="capturarFile($event)"></app-file-upload>
+                        </div>                  
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" >
+                  <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" *ngFor="let img of listpre">
+                      <div class="card">
+                        <div class="body">
+                          <div >
+                            <img style="width: 300px; height: 300px;" [src]="img" alt="No Image">
+                            <button mat-raised-button color="primary" (click)="deleteImg(img)">
+                              <mat-icon>restore_from_trash</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+              <div class="row" >
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" style="align-items: center; text-align: center">
+                  <button class="btn-space" (click)="addMejora()" mat-raised-button
+                    color="primary" [hidden]="actualiza == false">Guardar</button>                  
+                  <button class="btn-space" (click)="putMejora()" mat-raised-button color="primary" [hidden]="actualiza">Actualizar</button>                  
+                  <button type="button"(click)="cancelar()" mat-button>Cancelar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

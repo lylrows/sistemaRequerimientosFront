@@ -1,0 +1,171 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                        {{dialogTitle}}
+                    </div>
+                </div>
+            </div>
+        </div>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+       
+    </div>
+        <div mat-dialog-content>
+            <form class="register-form m-4" [formGroup]="menuForm" (ngSubmit)="submit">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Ruta</mat-label>
+                            <input matInput formControlName="path" >
+                            <mat-icon matSuffix>add_location</mat-icon>                            
+                        </mat-form-field>                       
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Título</mat-label>
+                            <input matInput formControlName="title" >
+                            <mat-icon matSuffix>title</mat-icon>
+                            
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Nombre del modulo</mat-label>
+                            <input matInput formControlName="moduleName" >
+                            <mat-icon matSuffix>assignment_ind</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Tipo de ícono</mat-label>
+                            <input matInput formControlName="iconType" >
+                            <mat-icon matSuffix>add_box</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>ícono</mat-label>
+                            <input matInput formControlName="icon">
+                            <mat-icon matSuffix>loyalty</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Nomber de clase</mat-label>
+                            <input matInput formControlName="class" >
+                            <mat-icon matSuffix>title</mat-icon>
+                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Grupo</mat-label>
+                            <mat-select formControlName="groupTitle" required>
+                                <mat-icon matSuffix>group_add</mat-icon>                         
+                                <mat-option [value]=1 >
+                                   SI
+                                </mat-option>    
+                                <mat-option [value]=0>
+                                    NO
+                                 </mat-option>                            
+                            </mat-select>
+                            <mat-error *ngIf="menuForm.get('groupTitle').hasError('required')">
+                                Seleccione una opción
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Insignia</mat-label>
+                            <input matInput formControlName="badge">
+                            <mat-icon matSuffix>contacts</mat-icon>                            
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Nomber de Insignia</mat-label>
+                            <input matInput formControlName="badgeClass" >
+                            <mat-icon matSuffix>live_help</mat-icon>                         
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Nombre de Rol</mat-label>
+                            <input matInput formControlName="rol" >
+                            <mat-icon matSuffix>assignment</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Campo Principal</mat-label>
+                            <input matInput formControlName="parentField" >
+                            <mat-icon matSuffix>featured_play_list</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Es Sub Menu</mat-label>
+                            <mat-select formControlName="isSubMenu" required>
+                                <mat-icon matSuffix>group_add</mat-icon>                         
+                                <mat-option [value]=1 >
+                                   SI
+                                </mat-option>    
+                                <mat-option [value]=0>
+                                    NO
+                                 </mat-option>                            
+                            </mat-select>
+                            <mat-icon matSuffix>library_books</mat-icon>
+                            <mat-error *ngIf="menuForm.get('isSubMenu').hasError('required')">
+                                Sub Menu es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>ID Rol</mat-label>
+                                <mat-select formControlName="idRole" required>
+                                <mat-icon matSuffix>business_center</mat-icon>
+                                <mat-option [value]="per.valorEntero" *ngFor="let per of Perfiles">
+                                   {{per.nombre}}
+                                </mat-option>                             
+                              </mat-select>
+                              <mat-error *ngIf="menuForm.get('idRole').hasError('required')">
+                                ID Rol es requerido
+                                </mat-error>
+                          </mat-form-field>
+                        </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Activo</mat-label>
+                            <mat-select formControlName="esActivo" required>  
+                                <mat-icon matSuffix>notifications_active</mat-icon>                       
+                                <mat-option [value]=1 >
+                                   SI
+                                </mat-option>    
+                                <mat-option [value]=0>
+                                    NO
+                                 </mat-option>                            
+                            </mat-select>
+                            <mat-error *ngIf="menuForm.get('esActivo').hasError('required')">
+                                Seleccione una opción
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="example-button-row">
+                            <button mat-raised-button color="primary" [type]="submit" [disabled]="!menuForm.valid"
+                                [mat-dialog-close]="1" (click)="confirmAdd()">Guardar</button>
+                            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+</div>

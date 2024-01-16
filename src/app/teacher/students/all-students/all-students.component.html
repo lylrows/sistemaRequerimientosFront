@@ -1,0 +1,302 @@
+<section class="content">
+  <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+          <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+          </app-breadcrumb>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <mat-tab-group  (selectedTabChange)="onTabChange($event)">
+                  <mat-tab>
+                      <ng-template mat-tab-label>
+                          <i class="material-icons-two-tone psr-3">list_alt</i>
+                          Tickets
+                      </ng-template>
+                      <div class="mt-5">
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="card">
+                                  <div class="body">
+                                      <div class="table-responsive">
+                                          <div class="materialTableHeader">
+                                              <div class="row"> 
+                                                  <div class="col-12">
+                                                      <ul class="header-buttons-left ml-0">
+                                                          <li class="dropdown">
+                                                            <h2>
+                                                              <strong>Tickets</strong></h2>
+                                                          </li>
+                                                          <li class="dropdown m-l-20">
+                                                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                                              <input placeholder="Buscar" type="text" #filterParameter class="browser-default search-field"
+                                                                aria-label="Search box" (keydown)="buscar($event)" >
+                                                            </li>
+                                                            <li>
+                                                              <div class="export-button m-l-10" matTooltip="AGREGAR">
+                                                                <button mat-mini-fab color="primary" (click)="addNew()">
+                                                                  <mat-icon class="col-white">add</mat-icon>
+                                                                </button>
+                                                              </div>
+                                                            </li>
+                                                            <li>
+                                                              <div class="export-button m-l-10" matTooltip="RECARGAR">
+                                                                <button mat-mini-fab color="primary" (click)="refresh()">
+                                                                  <mat-icon class="col-white">refresh</mat-icon>
+                                                                </button>
+                                                              </div>
+                                                            </li>
+                                                            <li>
+                                                              <div class="export-button m-l-10" hidden matTooltip="ELIMINAR">
+                                                                <button mat-mini-fab color="warn" (click)="removeSelectedRows()">
+                                                                  <mat-icon class="col-white">delete
+                                                                  </mat-icon>
+                                                                </button>
+                                                              </div>
+                                                            </li>
+                                                            <li fxFlex="30%"  class="dropdown m-l-5" style="padding-left: 10px;">
+                                                              <form [formGroup]="filterForms">
+                                                                <li class="dropdown m-l-5" style="padding-left: 10px;">
+                                                                  <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                                                                  <mat-label>Sistema</mat-label>
+                                                                  <mat-select formControlName="idSistema"  (selectionChange)="selectEmpresa($event)">
+                                                                    <mat-icon matSuffix>file_copy</mat-icon>
+                                                                    <mat-option [value]="-1">Todos</mat-option>
+                                                                    <mat-option  [value]="sis.nombreSistema" *ngFor="let sis of sistemas" >
+                                                                      {{sis.nombreSistema}}
+                                                                    </mat-option>              
+                                                                  </mat-select>                                                                         
+                                                                </mat-form-field>
+                                                                </li>
+                                                                <li class="dropdown m-l-5" style="padding-left: 10px;">
+                                                                  <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                                                                    <mat-label>Estado de ticket</mat-label>                                                                   
+                                                                    <mat-select formControlName="idEstado"  (selectionChange)="selectEstado($event)">
+                                                                      <mat-icon matSuffix>file_copy</mat-icon>
+                                                                      <mat-option [value]="-1">Todos</mat-option>
+                                                                      <mat-option  [value]="est.nombre" *ngFor="let est of estados" >
+                                                                        {{est.nombre}}
+                                                                      </mat-option>              
+                                                                    </mat-select>                                                                         
+                                                                  </mat-form-field>    
+                                                                </li>          
+                                                            </form>  
+                                                            </li> 
+                                                          </ul>
+                                                  </div>
+                                                  <div class="col-4" hidden>
+                                                      <ul class="header-buttons">
+                                                        <li>
+                                                          <div class="export-button m-l-10" matTooltip="XLSX">
+                                                            <img src="assets/images/icons/xlsx.png" alt=""
+                                                               />
+                                                          </div>
+                                                        </li>
+                                                        <li>
+                                                          <div class="export-button m-l-10" matTooltip="CSV">
+                                                            <img src="assets/images/icons/csv.png" alt=""  />
+                                                          </div>
+                                                        </li>
+                                                        <li>
+                                                          <div class="export-button m-l-10" matTooltip="JSON">
+                                                            <img src="assets/images/icons/json.png" alt=""
+                                                               />
+                                                          </div>
+                                                        </li>
+                                                        <li>
+                                                          <div class="export-button m-l-10" matTooltip="TXT">
+                                                            <img src="assets/images/icons/txt.png" alt=""  />
+                                                          </div>
+                                                        </li>
+                                                        
+                                                      </ul>
+                                                                                                        
+                                                  </div>                                                    
+                                              </div>                                                
+                                          </div>
+                                          <table class="table">
+                                              <thead>                                                    
+                                                    <tr>                                                      
+                                                      <th>ID</th>
+                                                      <th>Sistema</th>
+                                                      <th>Estado</th>
+                                                      <th>Tickets</th>
+                                                      <th>Prioridad</th>
+                                                      <th>Fecha de registro</th>
+                                                      <th>Usuario</th>
+                                                      <th>Detalles</th>
+                                                      <!-- <th>Asignar</th>
+                                                      <th>Solución</th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr *ngFor="let pp of incidenciaListaAux  | paginate: { itemsPerPage: items, currentPage: page }">                                                      
+                                                    <td> {{pp.idTicket}}</td>
+                                                    <td> {{pp.nombreSistema}}</td>
+                                                    <!-- <td> {{pp.estado}}</td> -->
+                                                    <td *ngIf="pp.estado=='Pendiente'"> <span class="badge badge-solid-orange">{{pp.estado}}</span></td>
+                                                    <td *ngIf="pp.estado=='Atendido'"> <span class="badge badge-solid-purple">{{pp.estado}}</span></td>
+                                                    <td *ngIf="pp.estado=='Observado'"> <span class="badge badge-solid-red">{{pp.estado}}</span></td>
+                                                    <td *ngIf="pp.estado=='Conforme'"> <span class="badge badge-solid-green">{{pp.estado}}</span></td>
+
+                                                    <td> {{pp.incidente}}</td>
+                                                    <td *ngIf="pp.prioridad=='Baja'"> <span class="badge badge-solid-green">{{pp.prioridad}}</span></td>
+                                                    <td *ngIf="pp.prioridad=='Media'"> <span class="badge badge-solid-purple">{{pp.prioridad}}</span></td>
+                                                    <td *ngIf="pp.prioridad=='Alta'"> <span class="badge badge-solid-orange">{{pp.prioridad}}</span></td>
+                                                    <td *ngIf="pp.prioridad=='Urgente'"> <span class="badge badge-solid-red">{{pp.prioridad}}</span></td>
+                                                    <td> {{pp.fechaRegistro | date: 'dd/MM/yyyy'}}</td>
+                                                    <td> {{pp.usuarioReg.split('@')[0]}}</td>                                                   
+                                                    <td>
+                                                      <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                      (click)="detailParameter(pp)"   
+                                                      >
+                                                          <mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>
+                                                      </button>
+                                                    </td>
+                                                    <!-- <td>
+                                                      <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                      (click)="asignarIncidencia(pp)"   
+                                                      >
+                                                          <mat-icon aria-label="Confirmar" class="col-white">assignment</mat-icon>
+                                                      </button>
+                                                    </td>                                                  
+                                                    <td>
+                                                      <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                      (click)="solucion(pp)"   
+                                                      >
+                                                          <mat-icon aria-label="Confirmar" class="col-white">assignment_turned_in</mat-icon>
+                                                      </button>
+                                                    </td> -->
+                                                  </tr>                                                  
+                                                </tbody>  
+                                          </table>
+                                          <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">                
+                                          </pagination-controls>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </mat-tab>
+                  <mat-tab *ngIf="showEmisionTab">
+                    <ng-template mat-tab-label>
+                      <i class="material-icons-two-tone psr-3">assessment</i>
+                      Emisión
+                  </ng-template>
+                  <div class="mt-5">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="card">
+                        <div class="body">
+                          <div class="table-responsive">
+                            <div class="materialTableHeader">
+                              <div class="row">
+                                <div class="col-12">
+                                  <ul class="header-buttons-left ml-0">
+                                    <li class="dropdown">
+                                      <h2>
+                                        <strong>Pedidos</strong></h2>
+                                    </li>
+                                    <li class="dropdown m-l-20">
+                                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                        <input placeholder="Buscar" type="text" #filterPedido class="browser-default search-field"
+                                          aria-label="Search box" (keyup)="buscarPedido(filterPedido.value)" >
+                                      </li>
+                                      <li>
+                                        <div class="export-button m-l-10" matTooltip="AGREGAR">
+                                          <button mat-mini-fab color="primary" (click)="addNewPedido()">
+                                            <mat-icon class="col-white">add</mat-icon>
+                                          </button>
+                                        </div>
+                                      </li>
+                                      <li>
+                                        <div class="export-button m-l-10" matTooltip="RECARGAR">
+                                          <button mat-mini-fab color="primary" (click)="refreshPedidos()">
+                                            <mat-icon class="col-white">refresh</mat-icon>
+                                          </button>
+                                        </div>
+                                      </li>
+                                      <li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">ID</th>
+                                  <th class="text-center">Título</th>
+                                  <th class="text-center">Inicio de Vigencia</th>
+                                  <th class="text-center">Estado</th>
+                                  <th class="text-center">Usuario de registro</th>
+                                  <th class="text-center">Fecha de registro</th>
+                                  <th class="text-center">Usuario de atención</th>
+                                  <th class="text-center">Fecha de atención</th>
+                                  <th class="text-center">Detalles</th>
+                                  <th class="text-center" [hidden]="idTipoEmision">Asignar</th>
+                                  <th class="text-center"  [hidden]="idTipoEmision">Solicitar aprobación</th>
+                                  <th class="text-center">Respuesta</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let pp of gridList  | paginate: { itemsPerPage: items2, currentPage: page2 }"
+                                  [ngClass]="{
+                                    'en-atencion': pp.estado === 'En Atención',
+                                    'atendido': pp.estado === 'Atendido',
+                                    'por-aprobacion': pp.estado === 'Por Aprobación'
+                                  }">
+
+                                  <td class="text-center"> {{pp.id}}</td>
+                                  <td> {{pp.titulo}}</td>
+                                  <td class="text-center"> {{pp.inicioVigencia | date: 'dd/MM/yyyy'}}</td>
+                                  <td class="text-center"> {{pp.estado}}</td>
+                                  <td> {{pp.usuarioRegistro}}</td>
+                                  <td class="text-center"> {{pp.fechaRegistro | date: 'dd/MM/yyyy'}}</td>
+                                  <td> {{pp.usuarioAtendido}}</td>
+                                  <td class="text-center" *ngIf="pp.fechaAtencion !== '-'; else showHyphen">
+                                    {{ pp.fechaAtencion | date: 'dd/MM/yyyy' }}
+                                  </td>
+                                  <ng-template #showHyphen>
+                                    <td class="text-center">-</td>
+                                  </ng-template>
+                                  <td class="text-center">
+                                    <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                    (click)="detailPedido(pp)"   
+                                    >
+                                        <mat-icon aria-label="Detalle" class="col-white">note_add</mat-icon>
+                                    </button>
+                                  </td>
+                                  <td class="text-center"  [hidden]="idTipoEmision">
+                                    <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                    (click)="asignarPerido(pp)"   
+                                    >
+                                        <mat-icon aria-label="Asignar" class="col-white">assignment</mat-icon>
+                                    </button>
+                                  </td>
+                                  <td class="text-center"  [hidden]="idTipoEmision">
+                                    <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                    (click)="solicitarAprobacion(pp)"   
+                                    >
+                                        <mat-icon aria-label="Solicitar aprobación" class="col-white">check_circle</mat-icon>
+                                    </button>
+                                  </td>
+                                  <td class="text-center">
+                                    <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                    (click)="respuestaEmision(pp)"   
+                                    >
+                                        <mat-icon aria-label="Responder emisión" class="col-white">policy</mat-icon>
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="page2 = $event" previousLabel="Anterior" nextLabel="Siguiente">                
+                            </pagination-controls>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </mat-tab>
+              </mat-tab-group>
+          </div>
+      </div>
+    </div>
+</section>

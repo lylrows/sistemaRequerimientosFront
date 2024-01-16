@@ -1,0 +1,235 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <!-- Your content goes here  -->
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-12">
+        <div class="card">
+          <div class="m-b-20">
+            <div class="contact-grid">
+              <div class="profile-header "
+              style="background-color: #1f2b41;">
+                <div class="user-name">{{usuario.nombres}}</div>
+                <div class="name-center">{{usuario.apellidos}}</div>
+              </div>
+              <img [src]="usuario.img" class="user-img" alt="">
+              <p>
+               <a><strong>Dirección: </strong></a>{{usuario.direccion}} <br /><a><strong>Email: </strong></a>{{usuario.email}}
+               <br /><a><strong>Perfil: </strong></a>{{usuario.perfil}}              
+               <br /><span class="phone">
+                  <i class="material-icons">phone: </i><a><strong>Teléfono: </strong></a>{{usuario.celular}}</span>
+              </p>   
+              <div class="example-button-row">
+                <button mat-raised-button color="primary" 
+                          (click)="backHome()">Regresar</button>                  
+              </div>  
+            </div>
+          </div>
+        </div>
+        <div class="card" hidden>
+          <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="About">
+              <div class="p-4">
+                <p class="text-default">Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has
+                  been the industry's standard dummy text ever since the 1500s, when an unknown
+                  printer
+                  took a galley of type and scrambled it to make a type specimen book. It has
+                  survived
+                  not only five centuries, but also the leap into electronic typesetting, remaining
+                  essentially
+                  unchanged.</p>
+                <small class="text-muted">Email address: </small>
+                <p>john@gmail.com</p>
+                <hr>
+                <small class="text-muted">Phone: </small>
+                <p>+91 1234567890</p>
+                <hr>
+              </div>
+            </mat-tab>
+            <mat-tab label="Skills">
+              <ul class="list-unstyled p-4">
+                <li>
+                  <div>Java</div>
+                  <div class="progress skill-progress m-b-20">
+                    <div class="progress-bar l-bg-green width-per-45" role="progressbar" aria-valuenow="45"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </li>
+                <li>
+                  <div>PHP</div>
+                  <div class="progress skill-progress m-b-20">
+                    <div class="progress-bar l-bg-orange width-per-38" role="progressbar" aria-valuenow="38"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </li>
+                <li>
+                  <div>Database</div>
+                  <div class="progress skill-progress m-b-20">
+                    <div class="progress-bar l-bg-cyan width-per-39" role="progressbar" aria-valuenow="39"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </li>
+                <li>
+                  <div>Spring</div>
+                  <div class="progress skill-progress m-b-20">
+                    <div class="progress-bar l-bg-purple width-per-70" role="progressbar" aria-valuenow="70"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </li>
+              </ul>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+
+      <div class="col-lg-8 col-md-12">
+        <div class="card">
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon msr-2">system_update</mat-icon>
+                Sistemas Asignados
+              </ng-template>
+              <div class="mt-5">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card">
+                    <div class="body">
+                      <div class="table-responsive" style=" overflow-x: hidden;">
+                        <div class="materialTableHeader">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                              <div class="col-8">
+                              <ul class="header-buttons-left ml-0">
+                                <li class="dropdown">
+                                  <h2>
+                                    <strong>Asignados</strong></h2>
+                                </li>
+                                <li class="dropdown m-l-20">
+                                    <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                    <input placeholder="Buscar" type="text" #filterParameter class="browser-default search-field"
+                                      aria-label="Search box">
+                                  </li>                               
+                                </ul>
+                              </div>
+                              <div class="col-4" hidden>
+                                <ul class="header-buttons">
+
+                                </ul>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                        <table class="table" >
+                          <thead>
+                            <tr>
+                              <th>Código Sistema</th>
+                              <th>Nombre Sistema</th>
+                              <th>Descripcion</th>
+                              <th>Empresa</th>
+                              <th>Nro RUC</th>
+                              <th>Hrs Contratadas</th>
+                              <th>Quitar Asignación</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let sis of sistemasByUsuario">
+                              <td>{{sis.codigoSistema}}</td>      
+                              <td>{{sis.nombreSistema}}</td>
+                              <td>{{sis.descripcion}}</td>
+                              <td>{{sis.razonSocial}}</td>
+                              <td>{{sis.numeroRUC}}</td>
+                              <td>{{sis.horasContratadas}}</td>    
+                              <td>
+                                <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                                (click)="deleteParameter(sis)"
+                                    >
+                                    <mat-icon aria-label="Eliminar" class="col-white">delete</mat-icon>
+                                </button>
+                                </td>                    
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+               
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon msr-2">assignment_turned_in</mat-icon>
+                Asignar Sistemas
+              </ng-template>
+              <div class="mt-5">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card">
+                    <div class="body">
+                      <div class="table-responsive" style=" overflow-x: hidden;">
+                        <div class="materialTableHeader">
+                          <div class="row">
+                            <div class="col-8">
+                              <ul class="header-buttons-left ml-0">
+                                <li class="dropdown">
+                                  <h2>
+                                    <strong>Sistemas</strong></h2>
+                                </li>
+                                <li class="dropdown m-l-20">
+                                    <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                    <input placeholder="Buscar" type="text" #filterParameter class="browser-default search-field"
+                                      aria-label="Search box">
+                                  </li>                               
+                                </ul>
+                            </div>
+                            <div class="col-4" hidden>
+                              <ul class="header-buttons">
+
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Código Sistema</th>
+                              <th>Nombre Sistema</th>
+                              <th>Descripcion</th>
+                              <th>tipoSistema</th>
+                              <th>Empresa</th>
+                              <th>Asignar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let sis of sistemasPorAsignar">
+                              <td>{{sis.codigoSistema}}</td>      
+                              <td>{{sis.nombreSistema}}</td>
+                              <td>{{sis.descripcion}}</td>
+                              <td>{{sis.tipoSistema}}</td>
+                              <td>{{sis.razonSocial}}</td>
+                              <td> <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                (click)="asignarSistema(sis)"   
+                                >
+                                    <mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>
+                                </button></td>                        
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

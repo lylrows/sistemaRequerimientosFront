@@ -1,0 +1,191 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-tab-group>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <i class="material-icons-two-tone psr-3">list_alt</i>
+              <h2>
+                <strong>Soluciones</strong></h2>
+            </ng-template>
+            <div class="mt-5">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                  <div class="body">
+                    <div class="table-responsive">
+                      <div class="materialTableHeader">
+                        <div class="row">
+                          <div class="col-8">
+                            
+                            <ul class="header-buttons-left ml-0">
+                              <!-- <li class="dropdown">
+                                <h2>
+                                  <strong>Soluciones</strong></h2>
+                              </li> -->
+                              <!-- <li class="dropdown m-l-15">
+                                  <label >Tipo de Solución</label>
+                                  <select class="select2 form-control block"    >
+                                    <option value="0"style="text-align: center;">--Seleccione--</option>
+                                    <option value="ss.valorEntero" *ngFor="let ss of Soluciones">
+                                    {{ss.nombre}}
+                                    </option>
+                                  </select>
+                              </li>       
+                              <li class="dropdown m-l-20">  
+                                <label>Tipificación</label>
+                                <select class="select2 form-control block">
+                                    <option value="0" style="text-align: center;">--Seleccione--</option>                           
+                                    <option value="tip.valorEntero" *ngFor="let tip of tipificaciones">
+                                    {{ tip.nombre}}
+                                    </option>                                  
+                                  </select> 
+                                </li>  -->
+                                 <!-- <li class="dropdown m-l-15">
+                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                  <input placeholder="Palabra Clave" type="text" #filter class="browser-default search-field"
+                                  aria-label="Search box">
+                                </li>    -->
+                                <li class="col-lg-8 col-md-8 col-sm-6 col-xs-6">    
+                                  
+                                    <mat-chip-list #chipList aria-label="Fruit selection">
+                                      <mat-chip *ngFor="let fruit of tagList" [selectable]="selectable" [removable]="removable"
+                                        (removed)="remove(fruit)">
+                                        {{fruit}}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                      </mat-chip>
+                                      
+                                      <input placeholder="Palabra Clave" #tagInput [formControl]="tagsCtrl" [matAutocomplete]="auto"
+                                        [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        (matChipInputTokenEnd)="add($event)" >
+                                    </mat-chip-list >
+                                    
+                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                      <mat-option *ngFor="let fruit of filteredTags | async" [value]="fruit">
+                                        {{fruit}}
+                                      </mat-option>
+                                    </mat-autocomplete>
+                                </li>
+                              
+                              <li class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                <button mat-raised-button type="button" color="primary" mat-button (click)="search()"
+                                 >Buscar</button>
+                              </li> 
+                              <!-- <li>
+                                <div class="export-button m-l-10" matTooltip="AGREGAR">
+                                  <button mat-mini-fab color="primary" (click)="addNew()">
+                                    <mat-icon class="col-white">add</mat-icon>
+                                  </button>
+                                </div>
+                              </li> -->
+                              <!-- <li>
+                                <div class="export-button m-l-10" matTooltip="RECARGAR">
+                                  <button mat-mini-fab color="primary" (click)="refresh()">
+                                    <mat-icon class="col-white">refresh</mat-icon>
+                                  </button>
+                                </div>
+                              </li> -->
+                              <!-- <li>
+                                <div class="export-button m-l-10" [hidden]=!selection.hasValue() matTooltip="ELIMINAR">
+                                  <button mat-mini-fab color="warn" (click)="removeSelectedRows()">
+                                    <mat-icon class="col-white">delete
+                                    </mat-icon>
+                                  </button>
+                                </div>
+                              </li> -->
+                            </ul>
+                          </div>
+                          <div class="col-4">
+                            <ul class="header-buttons">
+                              <!-- <li>
+                                <div class="export-button m-l-10" matTooltip="XLSX">
+                                  <img src="assets/images/icons/xlsx.png" alt=""
+                                    (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                                </div>
+                              </li>
+                              <li>
+                                <div class="export-button m-l-10" matTooltip="CSV">
+                                  <img src="assets/images/icons/csv.png" alt="" (click)="exporter.exportTable('csv')" />
+                                </div>
+                              </li>
+                              <li>
+                                <div class="export-button m-l-10" matTooltip="JSON">
+                                  <img src="assets/images/icons/json.png" alt=""
+                                    (click)="exporter.exportTable('json')" />
+                                </div>
+                              </li>
+                              <li>
+                                <div class="export-button m-l-10" matTooltip="TXT">
+                                  <img src="assets/images/icons/txt.png" alt="" (click)="exporter.exportTable('txt')" />
+                                </div>
+                              </li> -->
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <table class="table">
+                        <thead>                                                    
+                              <tr>                                                      
+                                <th>ID ticket</th>
+                                <th>Nombre</th>
+                                <th>Solución</th>
+                                <th>Empresa</th>
+                                <th>Sistema</th>
+                                <th>Ver ticket</th>
+                                <th>Ver Solución</th>
+                                  
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let pp of listadeSoluciones">                                                     
+                              <td> {{pp.idTicket}}</td>
+                              <td> {{pp.titulo}}</td>
+                              <td> {{pp.solucion}}</td>
+                              <td> {{pp.empresa}}</td>
+                              <td> {{pp.sistema}}</td>
+                              
+                                                                              
+                              <td>
+                                <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                (click)="verIncidencia(pp)"   
+                                >
+                                    <mat-icon aria-label="Confirmar" class="col-white">assignment_late</mat-icon>
+                                </button>
+                              </td>
+                              
+                              <td >
+                                <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                (click)="editCall(pp)"   
+                                >
+                                    <mat-icon aria-label="Confirmar" class="col-white">assignment_turned_in</mat-icon>
+                                </button>
+                              </td> 
+                                                                            
+                              <!-- <td>
+                                <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                (click)="solucion(pp)"   
+                                >
+                                    <mat-icon aria-label="Confirmar" class="col-white">assignment_turned_in</mat-icon>
+                                </button>
+                              </td> -->
+                            </tr>                                                  
+                          </tbody>  
+                    </table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</section>

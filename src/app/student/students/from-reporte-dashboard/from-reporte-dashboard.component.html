@@ -1,0 +1,49 @@
+<div class="row clearfix" >
+  <form class="register-form m-4" [formGroup]="filterFormsSoporte" >
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="header">
+          <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+            <mat-form-field appearance="outline">
+              <mat-label>Mes inicio</mat-label>
+              <mat-select  formControlName="mesIni">
+                <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                {{pp.text}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+            <mat-form-field appearance="outline">
+              <mat-label>Mes fin</mat-label>
+              <mat-select  formControlName="mesFin">
+                <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                  {{pp.text}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+           <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+            <button mat-raised-button type="button" color="primary" mat-button (click)="dashReporte()"
+                             >Buscar</button>
+           </div> 
+      </div>
+    </div>
+  </form>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="header">
+          <h2>Diagrama de horas</h2>
+        </div>
+        <div class="body">
+          <div style="height: 400px">
+            <ngx-charts-line-chart [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
+              [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="linexAxisLabel" [curve]="shapeChartCurve"
+              [yAxisLabel]="lineyAxisLabel" [autoScale]="autoScale" [timeline]="timeline">
+            </ngx-charts-line-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>

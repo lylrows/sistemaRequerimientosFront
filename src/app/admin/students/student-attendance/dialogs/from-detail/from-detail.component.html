@@ -1,0 +1,191 @@
+<div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+          <img [src]='studentAttendance.img' alt="avatar">
+          <div class="modal-about">
+            <div class="font-weight-bold p-t-5 font-17">
+              {{dialogTitle}}</div>
+          </div>
+        </div>
+      </div>
+      <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <table class="table">
+      <thead>
+          <tr>                                                      
+            <th>Numero de orden</th>
+            <th>Empresa</th>
+            <th>Sistemas</th>
+            <th>Rango de fecha</th>
+            <th>Estado</th>
+            <th>Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pp of studentsDetalleLis">                                                      
+            <td> {{pp.idUsuarioRegistro}}</td>
+            <td> {{pp.nombre}}</td>
+            <td> {{pp.fechaRegistro}}</td>
+            <td> {{pp.idPrioridad}}</td>
+            <td> {{pp.idEstado}}</td>
+            <td> {{pp.esActivo == 1? 'SI':'NO'}}</td>                                                    
+          </tr>
+          
+        </tbody>  
+  </table>
+
+
+
+
+    <div mat-dialog-content>
+      <form class="register-form m-4" [formGroup]="studentAttendanceForm" (ngSubmit)="submit">
+        <div class="row">
+          <div class=" col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Número de orden</mat-label>
+              <input matInput formControlName="rollNo" required>
+              <mat-icon matSuffix>label</mat-icon>
+              <mat-error *ngIf="studentAttendanceForm.get('rollNo').hasError('required')">
+                Please enter roll no
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class=" col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Empresa</mat-label>
+              <input matInput formControlName="sName" required>
+              <mat-icon matSuffix>account_circle</mat-icon>
+              <mat-error *ngIf="studentAttendanceForm.get('sName').hasError('required')">
+                Please enter student name
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width " appearance="outline">
+              <mat-label>Sistemas</mat-label>
+              <mat-select formControlName="class" required>
+                <mat-option [value]="'Class A'">
+                  Class A
+                </mat-option>
+                <mat-option [value]="'Class B'">
+                  Class B
+                </mat-option>
+                <mat-option [value]="'Class C'">
+                  Class C
+                </mat-option>
+                <mat-option [value]="'Class D'">
+                  Class D
+                </mat-option>
+                <mat-option [value]="'Class E'">
+                  Class E
+                </mat-option>
+                <mat-option [value]="'Class F'">
+                  Class F
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="studentAttendanceForm.get('class').hasError('required')">
+                Select Student Class
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Rango de fecha</mat-label>
+              <input matInput [matDatepicker]="picker1" formControlName="date" required>
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              <mat-error *ngIf="studentAttendanceForm.get('date').hasError('required')">
+                Please select date
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Estado</mat-label>
+              <mat-select formControlName="status" required>
+                <mat-option [value]="'Present'">
+                  Present
+                </mat-option>
+                <mat-option [value]="'Absent'">
+                  Absent
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="studentAttendanceForm.get('status').hasError('required')">
+                Select Status
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width mb-3" appearance="outline">
+              <mat-label>Usuario</mat-label>
+              <textarea matInput formControlName="note"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+  <!-- HTML DE CORREO, PARA AVISOS -->
+
+
+  <!-- <body>
+    <p style="font-family:arial;font-size:14;">   Estimado colaborador, buen día: <br> <br>   
+      Informarle que su envío con número de seguimiento en asunto ha culminado el proceso de nacionalización 
+      generando impuestos aduaneros y servicios de nacionalización DHL.   Usted encontrará los comprobantes 
+      adjuntos en este correo.<br> <br>  A fin de coordinar la entrega, necesitamos realice el pago a través 
+      de algunas de las modalidades a continuación:<br> <br>  <b>&nbsp;&nbsp;&nbsp;&nbsp; 
+      1.  Pago de servicios BCP/BBVA</b><br> <br>  •Realice la transferencia como pago de servicios(BCP) y 
+      proveedor o terceros(BBVA)<br>  •Elija la opción Recaudadora Express - soles (BCP) o DHL Express créditos
+      MN(BBVA)<br>  •Realice un pago por cada Nota Contable y/o Factura/Boleta<br> 
+      •En cada pago, indique el número de referencia de cada Nota Contable y/o Factura/Boleta
+      (no obvie los ceros).<br><br>  <b>&nbsp;&nbsp;&nbsp;&nbsp; 
+      2.  Telecrédito o Transferencia Interbancaria:</b><br> <br>  <b> BCP:</b><br> <br>  
+      Cuenta en Soles:<b> 193-1630160-062</b><br>  Cuenta interbancaria en Soles:<b> 
+      002-193001630160062-19</b><br><br>  <b> BBVA:</b><br> <br>  
+      Cuenta corriente en Soles:<b> 00110586560100020650</b><br>  
+      Cuenta interbancaria en Soles:<b> 011-586-000100020650-56</b><br><br>  
+      <b> Para más detalle de cómo realizar tu pago, mira nuestros videos instructivos:</b><br> <br>  
+      •<b>BCP</b>:  <a  href="https://youtu.be/s83MXiaYEFM">
+      <span font-family:"arial">https://youtu.be/s83MXiaYEFM</span></a><br> 
+      •<b>BBVA</b>: <a  href="https://youtu.be/2oNnr-o84ko">
+      <span font-family:"arial">https://youtu.be/2oNnr-o84ko</span></a><br> <br>  
+      <b><u>Nota:</u></b><br>  El tiempo de entrega después del abono es hasta 24hr (directa) o 48hr 
+      (interbancarias)<br><br>  <b>&nbsp;&nbsp;&nbsp;&nbsp;3. Pago en Línea vía la plataforma DHL On 
+      Demand Delivery</b><br>  Disponible las 24hr del día los 7 días de la semana. Realice el pago con 
+      cualquier tarjeta de crédito o débito en 3 pasos:<br> <br>  &nbsp;&nbsp;&nbsp;&nbsp;a. 
+      Ingrese al portal haciendo <a href="https://del.dhl.com/login.xhtml?ctrycode=PE">clic aquí</a> y 
+      digite su número de seguimiento DHL.<br>  &nbsp;&nbsp;&nbsp;&nbsp;b. Ingrese su tarjeta de crédito/débito
+      más sus datos personales.<br>  &nbsp;&nbsp;&nbsp;&nbsp;c. Haga clic en Finalizar y espere la ventana 
+      final de confirmación.<br><br>  ¡Listo! Su envío será programado y entregado en un plazo máximo de 24 
+      horas.<br> <br>  <b> Para más detalle de cómo realizar tu pago, mira nuestros videos instructivos
+      :</b><br> <br>  •<b>ODD</b>: <a href="https://youtu.be/cdtc6OoRVYM"><span font-family:"arial">
+      https://youtu.be/cdtc6OoRVYM</span></a><br> <br>  
+    <p style="color:red;font-family:arial;font-size:14; "><b>Monto total a pagar : S/. {0} </b></p>
+    <p style="color:red;font-family:arial;font-size:14; "><b><u>IMPORTANTE:</u></b></p>
+    <p style="font-family:arial;font-size:14; ">Para las opciones (1) y (2) agradeceremos nos envíe las 
+      constancias de transferencia o solicitud de pago contra-entrega al correo <b>confirmaciones.peru@dhl.com
+      </b></p>
+    <p style="color:black; font-family:arial;font-size:14;"> <b><u>En caso de haber realizado el pago omitir este correo.</b></u></p>
+    <p style="color:red; font-family:arial;font-size:14;"><b>¿Tiene dudas?</b></p>
+    <p style="font-family:arial;font-size:14; ">Por favor haga 
+      <a href="https://surveys.dpdhl.com/zyfcphdwpd?l=es">clic aquí</a>
+       y acceda a nuestra sección de preguntas frecuentes.<br> <br>  Quedamos atentos a su elección de pago
+       para realizar la entrega lo más pronto posible.<br> <br>  DHL Express Perú<br>  
+       Confirmaciones.peru@dhl.com<br><br> FIRMA <br>
+       <img src="https://marketingmobileperu.com/wp-content/uploads/2018/02/dhl-fondo-final-grande.fw_.png">
+      </p>
+    </p>
+ </body> -->

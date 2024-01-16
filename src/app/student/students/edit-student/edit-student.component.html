@@ -1,0 +1,43 @@
+<section class="content"  >
+  <div class="content-block"  >
+    <div class="block-header" *ngFor="let breadscrum of breadscrums" >
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active" >
+      </app-breadcrumb>
+    </div>
+    <!-- Your content goes here  -->
+    <div class="row clearfix" > 
+
+      <div class="col-lg-12 col-md-12" >
+        <div class="card" >
+          <mat-tab-group style="overflow-x: hidden;">
+            <mat-tab style="overflow-x: hidden;">
+              <app-form-pricipal-reportes>
+              <ng-template mat-tab-label >
+                <mat-icon class="example-tab-icon msr-2">drag_indicator</mat-icon>
+                Indicadores I
+              </ng-template>
+            </app-form-pricipal-reportes>          
+            </mat-tab>
+            <mat-tab>
+              <app-from-reporte-indicador-two>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon msr-2">drag_indicator</mat-icon>
+                Indicadores II
+              </ng-template>
+            </app-from-reporte-indicador-two>
+            </mat-tab>
+            <mat-tab style="overflow-x: hidden;">
+              <app-from-reporte-dashboard>
+              <ng-template mat-tab-label >
+                <mat-icon class="example-tab-icon msr-2">graphic_eq</mat-icon>
+                Dashboard
+              </ng-template>
+            </app-from-reporte-dashboard>    
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,288 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">                  
+                    <div class="col-8">
+                        <form [formGroup]="filterForm">
+                        <ul class="header-buttons-left ml-0">
+                          <li class="dropdown">
+                            <mat-form-field class="example-full-width mb-3" appearance="outline">
+                              <mat-label>Empresa</mat-label>
+                                  <mat-select formControlName="idEmpresa" required>
+                                  <mat-option [value]="emp.idEmpresa" *ngFor="let emp of empresas">
+                                      {{emp.razonSocial}}
+                                  </mat-option>                               
+                              </mat-select>                           
+                          </mat-form-field>
+                          </li>
+                          <li class="dropdown m-l-20">                        
+                            <mat-form-field class="example-full-width mb-3" appearance="outline">
+                              <mat-label>Fecha Inicio</mat-label>
+                              <input matInput [matDatepicker]="picker1" formControlName="fechaInicio" (dateChange)="validateDates()" required [max]="toDay">
+                              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                              <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>                          
+                          </li>
+                          <li class="dropdown m-l-20">
+                            <mat-form-field class="example-full-width mb-3" appearance="outline">
+                              <mat-label>Fecha Fin</mat-label>
+                              <input matInput [matDatepicker]="picker2" formControlName="fechaFin" (dateChange)="validateDates()" required [max]="toDay"> 
+                              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                              <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                          </li>
+                          <li>
+                            <div class="export-button m-l-10" matTooltip="BUSCAR">
+                              <button mat-mini-fab color="primary" (click)="refresh()" [disabled]="!filterForm.valid">
+                                <mat-icon class="col-white">search</mat-icon>
+                              </button>
+                            </div>
+                          </li>
+                      
+                        </ul>
+                      </form>
+                    </div>
+                  
+               
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX">
+                          <img src="assets/images/icons/xlsx.png" alt=""
+                            (click)="exporter.exportTable('xlsx', {fileName:'reporte-incidencia', sheet: 'sheet1'})" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="CSV">
+                          <img src="assets/images/icons/csv.png" alt=""
+                           (click)="exporter.exportTable('csv', {fileName:'reporte-incidencia', sheet: 'sheet1'})" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="JSON">
+                          <img src="assets/images/icons/json.png" alt=""
+                           (click)="exporter.exportTable('json', {fileName:'reporte-incidencia', sheet: 'sheet1'})" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="TXT">
+                          <img src="assets/images/icons/txt.png" alt=""
+                           (click)="exporter.exportTable('txt', {fileName:'reporte-incidencia', sheet: 'sheet1'})" />
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+              #exporter="matTableExporter">
+              <!-- Checkbox Column -->
+              <!-- <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
+                  </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
+                  </mat-checkbox>
+                </mat-cell>
+              </ng-container> -->
+              <!-- ID Column -->
+              <ng-container matColumnDef="idTicket">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Nro. de ticket</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.idTicket}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="solicitante">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Solicitante</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.solicitante}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="fechaRegistro">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de registro</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.fechaRegistro}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="tituloTicket">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Título de ticket</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.tituloTicket}}
+                </mat-cell>
+              </ng-container>
+               <ng-container matColumnDef="estado">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.estado}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="razonSocial">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.razonSocial}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="sistema">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Sistema</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.sistema}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="prioridad">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Prioridad</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.prioridad}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="responsable">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Responsable de atención</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.responsable}}
+                </mat-cell>
+              </ng-container> 
+              <ng-container matColumnDef="fechaAtencion">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de atencion</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.fechaAtencion}}
+                </mat-cell>
+              </ng-container> 
+              <ng-container matColumnDef="tipificacion">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Tipificacion</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.tipificacion}}
+                </mat-cell>
+              </ng-container> 
+              <ng-container matColumnDef="tipo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de ticket</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.tipo}}
+                </mat-cell>
+              </ng-container> 
+              <ng-container matColumnDef="horasEstimadas">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Horas estimadas</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.horasEstimadas}}
+                </mat-cell>
+              </ng-container> 
+              <ng-container matColumnDef="horasEjecutadas">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Horas ejecutadas</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.horasEjecutadas}}
+                </mat-cell>
+              </ng-container> 
+              <ng-container matColumnDef="ANS">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ANS</mat-header-cell>
+                <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)">
+                  {{row.ans}}
+                </mat-cell>
+              </ng-container> 
+              <!-- actions -->
+               <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef class="pr-0">Detalle</mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                  <button mat-icon-button (click)="$event.stopPropagation()" (click)="editCall(row.id)"
+                    class="tbl-action-btn">
+                    <app-feather-icons [icon]="'file-text'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                  </button>
+                  
+                </mat-cell>
+              </ng-container> 
+              <!--<ng-container matColumnDef="actions2">
+                <mat-header-cell *matHeaderCellDef class="pr-0">Actividades</mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                  <button mat-icon-button (click)="$event.stopPropagation()" (click)="addSystems(row)"
+                    class="tbl-action-btn">
+                    <app-feather-icons [icon]="'calendar'" [class]="'tbl-fav-codesandbox'"></app-feather-icons>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="actions3">
+                <mat-header-cell *matHeaderCellDef class="pr-0">Asignar</mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                  <button mat-icon-button (click)="$event.stopPropagation()" (click)="addSoporte(row)"
+                    class="tbl-action-btn">
+                    <app-feather-icons [icon]="'check-square'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                  </button>
+                </mat-cell>
+              </ng-container>
+               -->
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+              <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                [style.cursor]="'pointer'" matRipple>
+              </mat-row>
+            </mat-table>
+            <!-- Loading spinner -->
+            <!-- <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+              <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+              </mat-progress-spinner>
+            </div> -->
+            <!-- context menu start -->
+            <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+              [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+            </div>
+            <mat-menu #contextMenu="matMenu">
+              <ng-template matMenuContent let-item="item">
+                <button mat-menu-item (click)="addNew()">
+                  <mat-icon>add_box</mat-icon>
+                  <span>Add Record</span>
+                </button>
+                <button mat-menu-item (click)="editCall(item)">
+                  <mat-icon>create</mat-icon>
+                  <span>Edit Record</span>
+                </button>
+                <button mat-menu-item (click)="deleteItem(item)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete Record</span>
+                </button>
+                <button mat-menu-item (click)="refresh()">
+                  <mat-icon>refresh</mat-icon>
+                  <span>Refresh Record</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>no_encryption</mat-icon>
+                  <span>Disable</span>
+                </button>
+                <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
+                  <mat-icon>list_alt</mat-icon>
+                  <span> Nested Menu</span>
+                </button>
+              </ng-template>
+            </mat-menu>
+            <mat-menu #nestedmenu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>mail_outline</mat-icon>
+                <span>Item 1</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>call</mat-icon>
+                <span>Item 2</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>chat</mat-icon>
+                <span>Item 3</span>
+              </button>
+            </mat-menu>
+            <!-- context menu end -->
+            <!-- <div *ngIf="dataSource.renderedData.length == 0" class="no-results"
+              [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+              No results
+            </div> -->
+            <mat-paginator #paginator [length]="dataSource.filteredData.length || 0" [pageIndex]="0" [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>>

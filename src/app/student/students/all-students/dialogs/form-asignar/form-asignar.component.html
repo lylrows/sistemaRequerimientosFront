@@ -1,0 +1,44 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                      Usuarios para asignar</div>
+                  </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+          </button>
+    </div>
+    <br>
+    <div mat-dialog-content>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Usuario</th>
+                    <th>Nivel de Soporte</th>
+                    <th>Asignado</th>
+                    <th>Asignar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let uu of usuarios">
+                    <td> {{uu.idUsuario}}</td>
+                    <td> {{uu.usuario}}</td>
+                    <td> {{uu.idNivelSoporte ==1? 'Soporte nivel 1':'Soporte nivel 2'}}</td>
+                    <td> {{uu.asignado == 0? 'NO':'SI'}}</td>
+                    <td>
+                        <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                        (click)="asignarIncidencia(uu.idUsuario)"   
+                        >
+                            <mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>
+                        </button>
+                      </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

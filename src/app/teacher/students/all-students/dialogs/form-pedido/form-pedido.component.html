@@ -1,0 +1,165 @@
+<div class="addContainer" style="overflow-x: hidden;">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                       <p><strong>{{title }} {{pedidosObj.id}}</strong></p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+          </button>
+    </div>
+    <div mat-dialog-content style="overflow-x: hidden;" [hidden]="boolDetail">
+        <div class="body">            
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-label> <strong>Título</strong> </mat-label>
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Título del correo</mat-label>
+                      <input matInput [value]="pedidosObj.titulo" disabled>                    
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-label> <strong>Descripción</strong> </mat-label>
+                    <ckeditor [editor]="Editor2" [(ngModel)]="pedidosObj.descripcion" disabled="true" ></ckeditor>                     
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">                    
+                  <mat-form-field class="example-full-width mb-3" appearance="outline"> 
+                    <mat-label> <strong>Inicio de vigencia</strong> </mat-label>                     
+                    <input matInput [matDatepicker]="picker" [value]="pedidosObj.inicioVigencia" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>                   
+                  </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">                    
+                    <mat-form-field class="example-full-width mb-3" appearance="outline"> 
+                      <mat-label> <strong>Estado</strong> </mat-label>                     
+                      <mat-select [(ngModel)]="pedidosObj.idEstado" [disabled]="true">
+                        <mat-option [value]="pe.valorEntero" *ngFor="let pe of estadoPedidos">
+                            {{pe.nombre}}
+                        </mat-option>
+                      </mat-select>                     
+                    </mat-form-field>
+                  </div>
+                </div>
+                
+                <!-- ... -->                                    
+                <div class="row" >                  
+                  <mat-label> <strong>Archivos adjuntos</strong> </mat-label>                  
+                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" *ngFor="let file of archivosList">
+                    <!-- <label class="upload-label">Ficha técnica (Excel)</label> -->
+                    <div class="upload-container">
+                      <input class="upload-input" type="text" (click)="download(file)">
+                      <img class="file-thumbnail" [src]="getImage(file.nombreArchivo)" />
+                      <span class="file-name">{{file.nombreArchivo}}</span>
+                      <button mat-icon-button color="accent" (click)="download(file)" class="delete-button" matTooltip="Descargar archivo">
+                        <mat-icon>file_download</mat-icon>
+                      </button>
+                    </div>                   
+                  </div>                 
+                </div>                 
+                <!-- ... -->
+
+              
+        </div>
+    </div>
+    <div mat-dialog-content style="overflow-x: hidden;" [hidden]="boolApprobed">
+      <div class="body">
+        <form class="register-form m-4" [formGroup]="emissionForm">
+          <div class="row">         
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <mat-label> <strong>Título</strong> </mat-label>
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Título del correo</mat-label>
+                <input matInput formControlName="titulo" required type="text">    
+                <mat-error *ngIf="emissionForm.get('titulo').touched && emissionForm.get('titulo').hasError('required')">
+                  Título es requerido
+                </mat-error>                
+              </mat-form-field>
+             
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" >
+              <mat-label> <strong>Correo dirigido a:</strong> </mat-label>
+              <div style="border: 1px solid #ccc; border-radius: 4px; padding: 5px; margin-bottom: 10px; height: 55px;">
+                <mat-chip-list #chipList aria-label="Email selection" >
+                  <mat-chip *ngFor="let email of emailToList" [selectable]="selectable" [removable]="removable" (removed)="remove(email)">
+                    {{email}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+              
+                  <input placeholder="Escribir correo" #emailInput  [formControl]="emailsCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)" required>
+                </mat-chip-list>                    
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let email of filteredEmails | async" [value]="email">
+                    {{email}}
+                  </mat-option>
+                </mat-autocomplete>                
+              </div>
+              <mat-error *ngIf="emailsCtrl.touched && emissionForm.value.emailToList.length == 0">
+               Agregar correo
+              </mat-error>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <mat-label> <strong>Descripción</strong> </mat-label>
+              <ckeditor [editor]="Editor2" [data]="" formControlName="comentario" required></ckeditor>                     
+              <mat-error *ngIf="emissionForm.get('comentario').touched && emissionForm.get('comentario').hasError('required')">
+                Describa su pedido
+              </mat-error>
+            </div>          
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <div class="example-button-row" style="align-items: center; text-align: center">
+                    <button mat-raised-button color="primary"  [disabled]="!emissionForm.valid"
+                       (click)="aprobacion()">Enviar</button>
+                    <button mat-raised-button color="warn" (click)="dialogRef.close()" tabindex="-1">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        </form>
+      
+      </div>
+    </div>
+    <div mat-dialog-content style="overflow-x: hidden;" [hidden]="boolResponse">
+      <div class="body">
+        <form class="register-form m-4" [formGroup]="responseForm">
+          <div class="row">         
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <mat-label> <strong>Título</strong> </mat-label>
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Título del correo</mat-label>
+                <input matInput formControlName="titulo" required type="text" required [readonly]="idTipoEmision">    
+                <mat-error *ngIf="responseForm.get('titulo').touched && responseForm.get('titulo').hasError('required')">
+                  Título es requerido
+                </mat-error>                
+              </mat-form-field>
+             
+            </div>            
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <mat-label> <strong>Descripción</strong> </mat-label>
+              <ckeditor [editor]="Editor2" [data]="" formControlName="comentario" required [disabled]="idTipoEmision"></ckeditor>                     
+              <mat-error *ngIf="responseForm.get('comentario').touched && responseForm.get('comentario').hasError('required')">
+                Describa su pedido
+              </mat-error>
+            </div>          
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" [hidden]="idTipoEmision">
+                <div class="example-button-row" style="align-items: center; text-align: center">
+                    <button mat-raised-button color="primary"  [disabled]="!responseForm.valid"
+                       (click)="respuesta()">Responder</button>
+                    <button mat-raised-button color="warn" (click)="dialogRef.close()" tabindex="-1">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,290 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                        Empresa :  {{data.razonSocial}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="tipifForm">
+            <div class="row">
+                <mat-label><a><strong>Tipificaciones</strong></a></mat-label>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Buscar</mat-label>
+                        <input matInput formControlName="search"(keyup)="filtrarResultados()">
+                        <mat-icon matSuffix>search</mat-icon>                        
+                    </mat-form-field>
+                </div>
+                
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="align-items: center; text-align: center">Id</th>
+                                <th style="align-items: center; text-align: center">Nombre tipificación</th>
+                                <!-- <th style="align-items: center; text-align: center">Descripcion Sistema</th>
+                                <th style="align-items: center; text-align: center">Tipo Sistema</th>
+                                <th style="align-items: center; text-align: center">Horas Contratadas</th>
+                                <th style="align-items: center; text-align: center">Editar</th>-->
+                                <th style="align-items: center; text-align: center">Asociar</th> 
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr *ngFor="let ss of tipificaciones">
+                                
+                                <td style="align-items: center; text-align: center"> {{ss.id}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.nombre}}</td>
+                                <!-- <td style="align-items: center; text-align: center"> {{ss.descripcion}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.tipoSistemaNombre}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.horasContratadas}}</td> -->
+                                <!-- <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button (click)="editCall(ss)"
+                                    class="tbl-action-btn">
+                                    <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                                  </button>
+                                </td> -->
+                                <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="addItem(ss)"><mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>                                 
+                                  </button>
+                                  
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- <div class="row" [hidden]="asociarBoolButton">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <div class="example-button-row" style="align-items: center; text-align: center">
+                        <button mat-raised-button color="accent" 
+                           (click)="asociarSistema()">Registrar sistemas</button>                        
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <div class="example-button-row" style="align-items: center; text-align: center">
+                        <button mat-raised-button color="primary" 
+                           (click)="sistemaExistente()">Buscar sistemas</button>                        
+                    </div>
+                </div>
+            </div> -->
+            <!-- <form [hidden]="asociarBool" class="register-form m-4" [formGroup]="sistemaForm" (ngSubmit)="submit">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Código</mat-label>
+                        <input matInput formControlName="codigo"  maxlength="5">
+                        <mat-icon matSuffix>money</mat-icon>                        
+                    </mat-form-field>
+                    
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Nombre Sistema</mat-label>
+                            <input matInput formControlName="nombreSistema" maxlength="150">
+                            <mat-icon matSuffix>android</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Descripcion</mat-label>
+                            <input matInput formControlName="descripcion" maxlength="250">
+                            <mat-icon matSuffix>announcement</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Tipo de Sistema</mat-label>
+                                <mat-select formControlName="tipoSistema" (selectionChange)="selecttipoSistema($event)">
+                                <mat-icon matSuffix>compare_arrows</mat-icon>
+                                <mat-option [value]="tipo.valorEntero" *ngFor="let tipo of tiposSistema">
+                                    {{tipo.nombre}}
+                                </mat-option>                               
+                            </mat-select>                           
+                        </mat-form-field>
+                    </div>
+                <div *ngIf="cambio">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Describir tipo de sistema</mat-label>
+                            <input matInput formControlName="otros" maxlength="150">
+                            <mat-icon matSuffix>more</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Horas Contratadas</mat-label>
+                            <input matInput formControlName="horasContratadas"  type="number">
+                            <mat-icon matSuffix>hourglass_empty</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Intervalo de atención</mat-label>
+                            <input matInput formControlName="intervaloAtencion"  type="number">
+                            <mat-icon matSuffix>history</mat-icon>                           
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="example-button-row" style="align-items: center; text-align: center">
+                            <button mat-raised-button color="primary" [disabled]="!sistemaForm.valid"
+                                (click)="confirmAdd()">Guardar</button>
+                            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form> -->
+            <!-- <div class="row" [hidden]="deleteBool">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div>
+                        <a><strong>¿Está Seguro de desasociar el sistema? {{nombre}}</strong></a>
+                    </div>
+                    <br>
+                    
+                    <div class="example-button-row" style="align-items: center; text-align: center">
+                        <button mat-raised-button color="primary" [disabled]="!sistemaForm.valid"
+                            (click)="confirmDelete()">Si Desasociar</button>
+                        <button mat-raised-button color="warn" (click)="cancelDelete()" tabindex="-1">Cancelar</button>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row" > 
+                <br>
+                <mat-label><a><strong>Tipificaciones agregadas</strong></a></mat-label>
+                <br>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <table class="table">
+                        
+                        <thead>
+                            <tr>
+                                <th style="align-items: center; text-align: center">Id</th>
+                                <th style="align-items: center; text-align: center">Nombre tipificación</th>
+                                <th style="align-items: center; text-align: center">Desasociar</th>
+                                <!-- <th style="align-items: center; text-align: center">Descripcion Sistema</th>
+                                <th style="align-items: center; text-align: center">Intervalo Atencion</th>
+                                <th style="align-items: center; text-align: center">Asociar</th> -->
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr *ngFor="let ss of listTipEmpresa">
+                                
+                                <td style="align-items: center; text-align: center"> {{ss.idTipificacion}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.nombre}}</td>
+                                <!-- <td style="align-items: center; text-align: center"> {{ss.descripcion}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.intervaloAtencion}}</td>
+                                <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="asociarSistemaNuevo(ss)"><mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>                                 
+                                  </button>
+                                  
+                                </td> -->
+                                
+                                <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button (click)="desasociar(ss)"
+                                      class="tbl-action-btn">
+                                      <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                                    </button>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <mat-label><a><strong>Tipo de ticket</strong></a></mat-label>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Buscar</mat-label>
+                        <input matInput formControlName="searchTipo"(keyup)="filtrarResultadosTipo()">
+                        <mat-icon matSuffix>search</mat-icon>                        
+                    </mat-form-field>
+                </div>
+                
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="align-items: center; text-align: center">Id</th>
+                                <th style="align-items: center; text-align: center">Nombre ticket</th>
+                                <!-- <th style="align-items: center; text-align: center">Descripcion Sistema</th>
+                                <th style="align-items: center; text-align: center">Tipo Sistema</th>
+                                <th style="align-items: center; text-align: center">Horas Contratadas</th>
+                                <th style="align-items: center; text-align: center">Editar</th>-->
+                                <th style="align-items: center; text-align: center">Asociar</th> 
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr *ngFor="let ss of tipoIncidentesAux">
+                                
+                                <td style="align-items: center; text-align: center"> {{ss.id}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.nombre}}</td>
+                                <!-- <td style="align-items: center; text-align: center"> {{ss.descripcion}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.tipoSistemaNombre}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.horasContratadas}}</td> -->
+                                <!-- <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button (click)="editCall(ss)"
+                                    class="tbl-action-btn">
+                                    <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                                  </button>
+                                </td> -->
+                                <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="addTipo(ss)"><mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>                                 
+                                  </button>
+                                  
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" > 
+                <br>
+                <mat-label><a><strong>Tipo de ticket agregadas</strong></a></mat-label>
+                <br>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <table class="table">
+                        
+                        <thead>
+                            <tr>
+                                <th style="align-items: center; text-align: center">Id</th>
+                                <th style="align-items: center; text-align: center">Nombre ticket</th>
+                                <th style="align-items: center; text-align: center">Desasociar</th>
+                                <!-- <th style="align-items: center; text-align: center">Descripcion Sistema</th>
+                                <th style="align-items: center; text-align: center">Intervalo Atencion</th>
+                                <th style="align-items: center; text-align: center">Asociar</th> -->
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr *ngFor="let ss of listTipoTickets">
+                                
+                                <td style="align-items: center; text-align: center"> {{ss.idTipoIncidencia}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.nombre}}</td>
+                                <!-- <td style="align-items: center; text-align: center"> {{ss.descripcion}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.intervaloAtencion}}</td>-->
+                                <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button (click)="desasociarTipo(ss)"
+                                      class="tbl-action-btn">
+                                      <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                                    </button>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+   
+</div>

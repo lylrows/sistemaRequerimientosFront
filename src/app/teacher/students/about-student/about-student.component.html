@@ -1,0 +1,332 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <!-- Your content goes here  -->
+    <div class="row clearfix">
+
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon msr-2">developer_board</mat-icon>
+                ticket
+              </ng-template>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="project_widget">
+                  <div class="header">
+                    <h2><strong>Descripción</strong></h2>
+                  </div>
+                  <div class="body" >
+                    <div class="row">
+                      <div class="col-md-3 col-6 b-r">
+                        <strong>Nombre</strong>
+                        <br>
+                        <p class="text-muted">{{studentsServ.Incidenciadetalle.incidente}}</p>
+                      </div>
+                      <div class="col-md-3 col-6 b-r" [hidden]="studentsServ.Incidenciadetalle.tipoIncidencia == null">
+                        <strong>Tipo de ticket</strong>
+                        <br>
+                        <p class="text-muted">{{studentsServ.Incidenciadetalle.tipoIncidencia}}</p>
+                      </div>
+                      <div class="col-md-3 col-6 b-r">
+                        <strong>Prioridad</strong>
+                        <br>
+                        <p class="text-muted">{{studentsServ.Incidenciadetalle.prioridad}}</p>
+                      </div>
+                      <div class="col-md-3 col-6">
+                        <strong>Estado</strong>
+                        <br>
+                        <p class="text-muted">{{studentsServ.Incidenciadetalle.estado}}</p>
+                      </div> 
+                      <!-- <div class="col-md-2 col-6">
+                        <strong>Estado</strong>
+                      <form [formGroup]="ticket"> 
+                      <mat-form-field class="example-full-width mb-2" appearance="outline">
+                         <mat-label>Estado</mat-label> 
+                        <mat-select formControlName="idEstado" >
+                          <mat-option [value]="est.valorEntero" *ngFor="let est of estados">
+                            {{est.nombre}}
+                          </mat-option>                      
+                        </mat-select>
+                      </mat-form-field>
+                      </form> 
+                    </div>
+                      <div class="col-md-2 col-6 b-r"> 
+                        <div class="example-button-row">
+                          <button mat-raised-button color="primary" (click)="change()" 
+                          tabindex="-1">Actualizar Estado</button>
+                        </div> 
+                      </div>-->
+                    </div>                   
+                  </div>                
+
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="project_widget">
+                  <div class="header">
+                    <h2><strong>Secuencia Comentarios</strong></h2>
+                  </div>
+                  <div class="body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-10">
+                          <ul class="left-timeline">
+                            <li *ngFor="let com of comentariosDTO">
+                              <tr>                                                      
+                              <time class="left-time" datetime="2017-11-04T18:30"><span class="hidden">{{com.fechaRegistro | date: "dd/MM/yyyy, h:mm a"}}</span>
+                              </time>
+                              </tr>
+                              <br>
+                              <tr>
+                                <time class="left-time" datetime="2017-11-04T18:30">
+                              <span>{{com.usuario}}</span>
+                                </time>
+                              </tr>
+                              <div class="left-icon"><img [src]="com.img" alt="User" style="width: 50px; height: 50px;">
+                              </div>
+                              <div class="left-label empty" > 
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" >
+                                  <div class="body" >
+                                  <ckeditor  [editor]="Editor2" [config]="{ toolbar: none, readonly:true}" [data]="com.comentario" disabled="true">
+                                   </ckeditor>
+                                  </div>
+                                </div>
+                                 </div>  
+                            </li>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                              <div class="example-button-row" [hidden]="changeButon">
+                                <button mat-raised-button color="primary" (click)="addComentario()" 
+                                tabindex="-1">
+                                <mat-icon>add_comment</mat-icon>
+                                Agregar Respuesta</button>
+                              </div>
+                          </div>                            
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="header">
+                    <!-- <h2><strong>Agregar Comentarios</strong></h2> -->
+                  </div>
+                  <div class="row">
+                    
+                </div>                   
+             <!-- CKEDITOR, PARA LOS COMENTARIOS -->
+             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" >
+              <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card">                  
+                    <div class="body" [hidden]="boolEditor">
+                      <form class="register-form m-4" [formGroup]="EditorForm" >
+                        <ckeditor [editor]="Editor" data="" formControlName="comentario" required></ckeditor>           
+                        <br>                       
+                      </form>   
+                      <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                            <div class="example-button-row" style="align-items: center; text-align: center" >
+                              <button mat-raised-button color="primary" [disabled]="!EditorForm.valid" (click)="grabarRespuesta()" style="width: 180px;">
+                                <mat-icon style="color: white;">save</mat-icon>
+                                Grabar Respuesta
+                              </button>
+                              <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1" style="width: 180px;">
+                                <mat-icon style="color: white;">cancel</mat-icon>
+                                Cancelar
+                              </button>
+                            </div>
+                        </div>
+                    </div>  
+                    </div>
+                  </div>
+                </div>              
+              </div>              
+             </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" [hidden]="studentsServ.Incidenciadetalle.estado == 'Pendiente' || studentsServ.Incidenciadetalle.estado == 'Observado'">
+                  <div class="card">
+                    <div class="header">
+                      <h2><strong>Actualizar estado del ticket</strong></h2>
+                    </div>
+                  <div class="body" >
+                    <form class="register-form m-4" [formGroup]="Incidencia" >
+                    <div class="row">                         
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Estado</mat-label>
+                          <mat-select formControlName="idEstado" (selectionChange)="onChangeEstado($event.value)" [disabled]="changeButon">
+                            <mat-option [value]="est.valorEntero" *ngFor="let est of estados">
+                              {{est.nombre}}
+                            </mat-option>                      
+                          </mat-select>                  
+                        </mat-form-field>
+                      </div>                  
+                    </div>
+                    <div class="row" [hidden]="boolCalificacion">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="header" >
+                          <h2><strong>Califique la atención de su ticket</strong></h2>                          
+                              <i [class]="classStar1" (click)="changeButon?false:calificacion('star1')" style="cursor: pointer;">{{iconStar1}}</i>
+                              <i [class]="classStar2" (click)="changeButon?false:calificacion('star2')" style="cursor: pointer;">{{iconStar2}}</i>
+                              <i [class]="classStar3" (click)="changeButon?false:calificacion('star3')" style="cursor: pointer;">{{iconStar3}}</i>
+                              <i [class]="classStar4" (click)="changeButon?false:calificacion('star4')" style="cursor: pointer;">{{iconStar4}}</i>
+                              <i [class]="classStar5" (click)="changeButon?false:calificacion('star5')" style="cursor: pointer;">{{iconStar5}}</i>                                              
+                        </div>                       
+                      </div>
+                    </div>
+                </form>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-button-row" style="align-items: center; text-align: center" [hidden]="changeButon">
+                      <button mat-raised-button color="primary" [disabled]="!Incidencia.valid" (click)="actualizarIncidencia()" style="width: 180px;">
+                        <mat-icon style="color: white;">update</mat-icon>
+                        Actualizar ticket
+                      </button>
+                      <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1" style="width: 180px;">
+                        <mat-icon style="color: white;">cancel</mat-icon>
+                        Cancelar
+                      </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+              </div>
+         
+                </div>
+              </div>
+            </mat-tab>
+
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon class="example-tab-icon msr-2">attach_file</mat-icon>
+                Adjuntos
+              </ng-template>
+              <div class="header">
+                <h2>
+                   Secuencia de <strong>Evidencias</strong></h2>
+              </div>
+              <div class="body">
+                <section id="cd-timeline" class="cd-container">
+                  <div class="cd-timeline-block">
+                    <!-- <div class="cd-timeline-img cd-picture">
+                      <img [src]="" alt="User">
+                    </div>
+                
+                    <div class="cd-timeline-content">
+                      <img [src]="">
+                    </div> -->
+                    <ul class="left-timeline">
+                    <li *ngFor="let com of archivos">
+                      <tr>                                                      
+                      <time class="left-time" datetime="2017-11-04T18:30"><span class="hidden">{{com.fechaRegistro | date: "dd/MM/yyyy, h:mm a"}}</span>
+                      </time>
+                      </tr>
+                      <br>
+                      <tr>
+                        <time class="left-time" datetime="2017-11-04T18:30">
+                      <span>{{com.usuario}}</span>
+                        </time>
+                      </tr>
+                      <div class="left-icon"><img [src]="com.img" alt="User" style="width: 50px; height: 50px;">
+                      </div>
+                     
+
+                         <div class="left-label">
+                          <div class="row">
+                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <img [src]="com.urlArchivo.includes('.pdf')?'assets/images/logo-pdf.jpg':
+                                    com.urlArchivo.includes('.xls')?'assets/images/logo-excel.png':
+                                    com.urlArchivo.includes('.doc')?'assets/images/logo-word.jpg':
+                                    com.urlArchivo.includes('.rar')?'assets/images/logo-rar.jpg':
+                                    com.urlArchivo.includes('.zip')?'assets/images/logo-zip.jpg':
+                                    com.urlArchivo.includes('.txt')?'assets/images/logo-txt.png':
+                                    com.urlArchivo" style="max-width: 750px; max-height: 450px;" >
+                              </div>
+                          </div>
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                            <button mat-raised-button color="primary" (click)="descargarArchivo(com.urlArchivo)" 
+                      >Descargar</button>
+                          </div>
+                          </div>
+                          
+                    </li>
+                  </ul>
+                  </div>                 
+                                 
+                </section>
+                <!-- cd-timeline -->
+                <div class="header"  [hidden]="changeButon">
+                  <h2>
+                     Agregar <strong>Adjuntos</strong></h2>
+                </div>
+                
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                    <div class="example-button-row"  [hidden]="changeButon">
+                      <button mat-raised-button color="primary" (click)="addimg()" 
+                      tabindex="-1">Agregar archivo</button>
+                    </div>
+                </div>
+              </div> 
+
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" [hidden]="boolimg">
+                <div class="row clearfix">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">                  
+                      <div class="body" >
+                        <form class="register-form m-4" [formGroup]="ImgForm" >
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" > 
+                            <app-file-upload *ngIf="!boolimg" #fileUploadComponent formControlName="uploadFile" (change)="fileUploadComponent.writeValue(null); capturarFile($event)"></app-file-upload>                    
+                          </div>          
+                          <br>
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                <div class="example-button-row">
+                                    <button mat-raised-button color="primary"  [disabled]="!ImgForm.valid"
+                                       (click)="confirmimg()">Guardar</button>
+                                    <button mat-raised-button color="warn" (click)="NoClickimg()" tabindex="-1">Cancelar</button>
+                                    <button mat-raised-button color="primary" (click)="verfoto()" tabindex="-1">Vista preliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2" [hidden]="boolver">
+                    <div class="row clearfix">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" *ngFor="let img of listpre">
+                        <div class="card">                  
+                          <div class="body">
+                            <div >
+                              <img style="width: 300px; height: 300px;" [src]="img" alt="No Image" (onClick)="clickevento(img)">
+                              <label>{{img.name}}</label>
+                              <button mat-raised-button color="primary" (click)="deleteImg(img)">
+                                <mat-icon>restore_from_trash</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+  
+  
+                </div>
+               </div>
+
+
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,742 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="body">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <img src="https://thumbs.gfycat.com/IdleAnotherAmphiuma-size_restricted.gif" alt="" class="w-100">
+              </div>
+              <div class="col-md-8">
+                <h4 class="font-20 weight-500 mb-2">
+                  Bienvenido de nuevo <div class="weight-600 font-30 col-blue pt-1">{{user.nombres}} {{user.apellidos}}!</div>
+                </h4>
+                <p class="font-18 max-width-600">Nos gustaría aprovechar esta oportunidad para darle la bienvenida a nuestro
+                  aplicativo y agradecerle por elegir nuestros servicios. Esperamos
+                  brindarle una atención  personalizada e integral centrada en la resolución de tus tickets.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" hidden>
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="float-start">
+              <h6 class="text-muted">Número de tickets por mes</h6>
+              <h5>65 <span class="text-muted font-12">(Promedio)</span></h5>
+            </div>
+            <div class="mb-5">
+              <apx-chart [series]="avgLecChartOptions.series" [chart]="avgLecChartOptions.chart"
+                [xaxis]="avgLecChartOptions.xaxis" [stroke]="avgLecChartOptions.stroke"
+                [colors]="avgLecChartOptions.colors" [dataLabels]="avgLecChartOptions.dataLabels"
+                [legend]="avgLecChartOptions.legend" [markers]="avgLecChartOptions.markers"
+                [grid]="avgLecChartOptions.grid" [yaxis]="avgLecChartOptions.yaxis"
+                [tooltip]="avgLecChartOptions.tooltip" [title]="avgLecChartOptions.title"
+                [fill]="avgLecChartOptions.fill">
+              </apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Estado de sus tickets</h2>
+          </div>
+          <div class="body">
+            <div id="chart">
+              <apx-chart [series]="pieChartOptions.series" [chart]="pieChartOptions.chart"
+                [labels]="pieChartOptions.labels" [responsive]="pieChartOptions.responsive"
+                [dataLabels]="pieChartOptions.dataLabels" [legend]="pieChartOptions.legend" class="apex-pie-center">
+              </apx-chart>
+            </div>
+            <div class="table-responsive m-t-15">
+              <table class="table align-items-center">
+                <tbody>
+                  <tr>
+                    <td><i class="fa fa-circle col-cyan msr-2"></i>En Ateción</td>
+                    <td>22</td>
+                    <td class="col-green">+32%</td>
+                  </tr>
+                  <tr>
+                    <td><i class="fa fa-circle col-blue msr-2"></i>Cerradas OK</td>
+                    <td>44</td>
+                    <td class="col-green">+12%</td>
+                  </tr>
+                  <tr>
+                    <td><i class="fa fa-circle col-orange msr-2"></i>Por Resolver</td>
+                    <td>13</td>
+                    <td class="col-orange">-12%</td>
+                  </tr>
+                  <tr>
+                    <td><i class="fa fa-circle col-green msr-2"></i>Resueltas</td>
+                    <td>55</td>
+                    <td class="col-green">+3%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix" hidden>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Lecture In Week</h2>
+          </div>
+          <div class="body">
+            <div class="table-responsive">
+              <table class="table table-borderless medicine-list">
+                <tr class="mb-3">
+                  <td><i class="fas fa-microscope pill-style"></i> Chemistry</td>
+                  <td class="text-end">
+                    <span class="badge-outline">M - W - F -</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-square-root-alt pill-style"></i> Mathematics</td>
+                  <td class="text-end">
+                    <span class="badge-outline">- T - T - S</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-palette pill-style"></i> Painting</td>
+                  <td class="text-end">
+                    <span class="badge-outline">M - - T - S</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-business-time pill-style"></i> Business Studies</td>
+                  <td class="text-end">
+                    <span class="badge-outline">M - W T - -</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-heart pill-style"></i> Biology</td>
+                  <td class="text-end">
+                    <span class="badge-outline">M - W - F -</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-laptop-code pill-style"></i> Computer Studies</td>
+                  <td class="text-end">
+                    <span class="badge-outline">M - - T - S</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-globe-asia pill-style"></i> Geography</td>
+                  <td class="text-end">
+                    <span class="badge-outline">M - W - F S</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="text-center p-t-20">
+              <button mat-stroked-button color="primary">View More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Today's Lecture</h2>
+          </div>
+          <div class="tableBody">
+            <div class="table-responsive">
+              <table class="table table-hover ">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Subject Name</th>
+                    <th>Standard</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Details </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Business studies</td>
+                    <td>Standard 12</td>
+                    <td>10:30 AM</td>
+                    <td>45 Min</td>
+                    <td>
+                      <button mat-flat-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Chemistry</td>
+                    <td>Standard 11</td>
+                    <td>11:15 AM</td>
+                    <td>30 Min</td>
+                    <td>
+                      <button mat-flat-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Biology</td>
+                    <td>Standard 12</td>
+                    <td>12:00 AM</td>
+                    <td>35 Min</td>
+                    <td>
+                      <button mat-flat-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Physics</td>
+                    <td>Standard 11</td>
+                    <td>12:45 AM</td>
+                    <td>30 Min</td>
+                    <td>
+                      <button mat-flat-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Music</td>
+                    <td>Standard 8</td>
+                    <td>02:00 AM</td>
+                    <td>45 Min</td>
+                    <td>
+                      <button mat-flat-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>Computer studies</td>
+                    <td>Standard 10</td>
+                    <td>03:30 AM</td>
+                    <td>35 Min</td>
+                    <td>
+                      <button mat-flat-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div [hidden]="!user.isGerente">
+    <form class="register-form m-4" [formGroup]="filterForms" >
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="header">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+          <h2>Atención de solicitudes</h2>
+          </div>
+          
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccione año</mat-label>
+              <mat-select  formControlName="fechaini">
+                <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                  {{pp.id}}
+                </mat-option>
+                
+              </mat-select>
+            </mat-form-field>
+          </div>
+           <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccione mes</mat-label>
+              <mat-select  formControlName="fechafin">
+                <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                  {{pp.text}}
+                </mat-option>
+                
+              </mat-select>
+            </mat-form-field>
+          </div> 
+          <!-- <input type="number" min="1900" max="2099" step="1" value="2016" /> -->
+          
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+          <!-- <li class="dropdown m-l-15" style="margin: 15px;height:20px; ">  -->
+            <button mat-raised-button type="button" color="primary" mat-button (click)="search()"
+                             >Buscar</button>
+            <!-- </li> -->
+          </div>
+        </div>
+        <div class="body">
+          <div echarts [options]="graph_line_chart" class="echart-height"></div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div [hidden]="!user.isGerente">
+  <form class="register-form m-4" [formGroup]="filterForms2">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="header">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+          <h2>Tickets por sistema</h2></div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccione año</mat-label>
+              <mat-select  formControlName="fechainiSe">
+                <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                  {{pp.id}}
+                </mat-option>
+                
+              </mat-select>
+            </mat-form-field>
+          </div>
+           <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccione mes</mat-label>
+              <mat-select  formControlName="fechafinSe">
+                <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                  {{pp.text}}
+                </mat-option>
+                
+              </mat-select>
+            </mat-form-field>
+          </div>          
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2"> 
+            <button mat-raised-button type="button" color="primary" mat-button (click)="searchSistema()"
+                             >Buscar</button>
+          </div>
+        </div>
+        <div class="body">
+            <div echarts [options]="bar_chart" class="echart-height"></div>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+    <div class="row clearfix" hidden>
+              
+      <!-- Bar chart -->
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Tickets por sistema</h2>
+
+          </div>
+          <!-- <div class="body">
+            <div echarts [options]="bar_chart" class="echart-height"></div>
+          </div> -->
+        </div>
+      </div>
+      <!-- Graph Line Chart -->
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Solo incidentes y envio al Acsel-e</h2>
+
+          </div>
+          <div class="body">
+            <div echarts [options]="bar_chart1" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </div> 
+        <!-- style="align-items: center; text-align: center" -->
+          <!-- <form class="register-form m-4" [formGroup]="filterForms3" >
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div  class="card" >
+                <div class="header">
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+                    <h2>Cumplimiento de ANS</h2></div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Seleccione año</mat-label>
+                      <mat-select  formControlName="anho">
+                        <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                          {{pp.id}}
+                        </mat-option>
+                        
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Mes Inicio</mat-label>
+                      <mat-select  formControlName="mesIniANS">
+                        <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                          {{pp.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div> 
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Mes Fin</mat-label>
+                      <mat-select  formControlName="mesFinANS">
+                        <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                          {{pp.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>         
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+                    <button mat-raised-button type="button" color="primary" mat-button (click)="searchANS()"
+                                     >Buscar</button>
+                  </div>  
+                </div>
+                <div class="body">
+                  <div class="recent-report__chart">
+                    <h5 class="text-center">Full</h5>
+                    <ngx-gauge [value]="gaugeValue" [size]="gaugeSize" [type]="guageType1" [thick]="guageThick"
+                      class="guage-chart-center">
+                      <ngx-gauge-append>
+                        <span class="font-15">'Promedio'</span>
+                      </ngx-gauge-append>
+                      <ngx-gauge-label>
+                        'ANS'
+                      </ngx-gauge-label>
+                      <ngx-gauge-value>
+                        {{gaugeValue}}
+                      </ngx-gauge-value>
+                    </ngx-gauge>
+                    <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels"
+                      [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
+                      [chartType]="barChartType" (click)="promedio($event)"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form> -->
+        
+      <div class="col-lg-12" hidden>
+        <div class="card">
+          <!-- <div class="header">
+            <h2>ANS Agosto</h2>
+          </div> -->
+          <div class="body">
+            <div class="recent-report__chart">
+              <!-- <h5 class="text-center">Full</h5>
+              <ngx-gauge [value]="gaugeValue" [size]="gaugeSize" [type]="guageType1" [thick]="guageThick"
+                class="guage-chart-center">
+                <ngx-gauge-append>
+                  <span class="font-15">'Promedio'</span>
+                </ngx-gauge-append>
+                <ngx-gauge-label>
+                  'ANS'
+                </ngx-gauge-label>
+                <ngx-gauge-value>
+                  {{gaugeValue}}
+                </ngx-gauge-value>
+              </ngx-gauge> -->
+              <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels"
+                [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend"
+                [chartType]="barChartType" (click)="promedio($event)"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-lg-6">
+        <div class="card">
+          <div class="header">
+            <h2>ANS Setiembre</h2>
+          </div>
+          <div class="body">
+            <div class="recent-report__chart">
+              <h5 class="text-center">Full</h5>
+              <ngx-gauge [value]="gaugeValue" [size]="gaugeSize" [type]="guageType1" [thick]="guageThick"
+                class="guage-chart-center">
+                <ngx-gauge-append>
+                  <span class="font-15">'km/hr'</span>
+                </ngx-gauge-append>
+                <ngx-gauge-label>
+                  'Speed'
+                </ngx-gauge-label>
+                <ngx-gauge-value>
+                  {{gaugeValue}}
+                </ngx-gauge-value>
+              </ngx-gauge>
+              <canvas baseChart class="chart" [datasets]="barChartData1" [labels]="barChartLabels1"
+                [options]="barChartOptions1" [colors]="barChartColors1" [legend]="barChartLegend1"
+                [chartType]="barChartType1"></canvas>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="row" >
+      <div  style="align-items: center; text-align: center">
+        <h2>
+          <strong>Solicitudes Pendientes</strong></h2></div> 
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>tickets Pendientes</h2>
+          </div>
+          <div class="body">
+            <div echarts [options]="graph_line_chartCuarto" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div [hidden]="!user.isGerente">
+    <form class="register-form m-4" [formGroup]="filterforms4" >
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+            <h2>Tipificaciones</h2></div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione año</mat-label>
+                <mat-select  formControlName="anho">
+                  <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                    {{pp.id}}
+                  </mat-option>
+                  
+                </mat-select>
+              </mat-form-field>
+            </div>
+             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione mes</mat-label>
+                <mat-select  formControlName="mesSol">
+                  <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                    {{pp.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> 
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Tipificación</mat-label>
+              <mat-select formControlName="tipif" multiple>
+                <mat-option *ngFor="let topping of tipifica" [value]="topping.value">{{topping.text}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+            <!-- <input type="number" min="1900" max="2099" step="1" value="2016" /> -->
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <button mat-raised-button type="button" color="primary" mat-button (click)="searchPendientes()"
+                               >Buscar</button>
+            </div>
+          </div>
+          <div class="body">
+            <div echarts [options]="graph_line_chartCuarto" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div hidden>
+    <form class="register-form m-4" [formGroup]="filterFormsSis" >
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+            <h2>Horas asignadas por sistemas</h2>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione año</mat-label>
+                <mat-select  formControlName="anho">
+                  <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                    {{pp.id}}
+                  </mat-option>
+                  
+                </mat-select>
+              </mat-form-field>
+            </div>
+             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione mes</mat-label>
+                <mat-select  formControlName="mes">
+                  <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                    {{pp.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> 
+            <!-- <input type="number" min="1900" max="2099" step="1" value="2016" /> -->
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+            <!-- <li class="dropdown m-l-15" style="margin: 15px;height:20px; ">  -->
+              <button mat-raised-button type="button" color="primary" mat-button (click)="searchSistemas()"
+                               >Buscar</button>
+              <!-- </li> -->
+            </div>
+          </div>
+          <div class="body">
+            <div echarts [options]="graph_line_chart1" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div class="row clearfix" hidden>
+      <div  style="align-items: center; text-align: center">
+        <h2>
+          <strong>Uso de horas de soporte
+            al 31 octubre 2022
+            </strong></h2></div>
+      <!-- Line Chart -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Uso de horas e-commerce</h2>
+          </div>
+          <div class="body">
+            <div style="height: 400px">
+              <ngx-charts-line-chart [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
+                [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="linexAxisLabel" [curve]="shapeChartCurve"
+                [yAxisLabel]="lineyAxisLabel" [autoScale]="autoScale" [timeline]="timeline">
+              </ngx-charts-line-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Uso de horas SIPOC</h2>
+          </div>
+          <div class="body">
+            <div style="height: 400px">
+              <ngx-charts-line-chart [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
+                [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="linexAxisLabel" [curve]="shapeChartCurve"
+                [yAxisLabel]="lineyAxisLabel" [autoScale]="autoScale" [timeline]="timeline">
+              </ngx-charts-line-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Uso de horas Sigma</h2>
+          </div>
+          <div class="body">
+            <div style="height: 400px">
+              <ngx-charts-line-chart [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
+                [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="linexAxisLabel" [curve]="shapeChartCurve"
+                [yAxisLabel]="lineyAxisLabel" [autoScale]="autoScale" [timeline]="timeline">
+              </ngx-charts-line-chart>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- #END# Line Chart -->
+    </div>
+
+    <!-- <div class="row clearfix">
+         
+  
+    <div class="card">
+    <div class="header">
+      <h2>Evolución semanal por sistema</h2>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="header">
+          <h2>tickets por sistema</h2>
+        </div>
+        <div class="body">
+          <div echarts [options]="bar_chart" class="echart-height"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="header">
+          <h2>Solo incidentes y envio al Acsel-e</h2>
+
+        </div>
+        <div class="body">
+          <div echarts [options]="bar_chart" class="echart-height"></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div> -->
+
+   <div class="row" [hidden]="user.isGerente">
+    <div class="col-lg-3 col-sm-6">
+      <div class="info-box7 bg-c-blue order-info-box7">
+        <div class="info-box7-block">
+          <h6 class="m-b-20">Tickets del año</h6>
+          <h2 class="text-end"><i class="fas fa-tasks float-start"></i><span>{{anho[0]}}</span></h2>
+          <p class="m-b-0 font-13">{{parrafoMayorAnho}}{{anhoPor[0]}}% {{parrafoAnho}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="info-box7 bg-c-green order-info-box7">
+        <div class="info-box7-block">
+          <h6 class="m-b-20">Tickets del mes</h6>
+          <h2 class="text-end"><i class="fas fa-business-time float-start"></i><span>{{mes[0]}}</span></h2>
+          <p class="m-b-0 font-13">{{parrafoMayorMes}}{{mesPor[0]}}% {{parrafoMes}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="info-box7 bg-c-yellow order-info-box7">
+        <div class="info-box7-block">
+          <h6 class="m-b-20">Tickets de la semana</h6>
+          <h2 class="text-end"><i class="fas fa-file-alt float-start"></i><span>{{semana[0]}}</span></h2>
+          <p class="m-b-0 font-13">{{parrafoMayorSemana}}{{semanaPor[0]}}% {{parrafoSemana}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="info-box7 bg-c-pink order-info-box7">
+        <div class="info-box7-block">
+          <h6 class="m-b-20">Tickets del día</h6>
+          <h2 class="text-end"><i class="fas fa-list-alt float-start"></i><span>{{dia[0]}}</span></h2>
+          <p class="m-b-0 font-13">{{parrafoMayor}}{{diaPor[0]}}% {{parrafo}}</p>
+        </div>
+      </div>
+    </div>
+  </div> 
+  
+  <div class="row clearfix" [hidden]="user.isGerente">
+    <!-- Bar chart -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Estado de los tickets del {{sevenDaysAgo | date:"dd-MM-yyyy"}} hasta {{today | date:"dd-MM-yyyy"}}</h2>
+          </div>
+          <div class="body">
+            <div class="recent-report__chart">
+              <canvas baseChart class="chart" [data]="polarAreaChartData" [options]="polarChartOptions"
+                [labels]="polarAreaChartLabels" [legend]="polarAreaLegend" [chartType]="polarAreaChartType"
+                [colors]="ploarChartColors"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Graph Line Chart -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="header">
+          <h2>Ticket por sistema totales</h2>
+        </div>
+        <div class="body">
+          <div echarts [options]="graph_line_chart_sistema" class="echart-height"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>

@@ -1,0 +1,146 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" *ngFor="let breadscrum of breadscrums">
+            <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+            </app-breadcrumb>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-tab-group>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="material-icons-two-tone psr-3">list_alt</i>
+                            perfiles
+                        </ng-template>
+                        <div class="mt-5">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card">
+                                    <div class="body">
+                                        <div class="table-responsive">
+                                            <div class="materialTableHeader">
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <ul class="header-buttons-left ml-0">
+                                                            <li class="dropdown">
+                                                              <h2>
+                                                                <strong>Perfiles</strong></h2>
+                                                            </li>
+                                                            <li class="dropdown m-l-20">
+                                                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                                                <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                                                                  aria-label="Search box">
+                                                              </li>
+                                                              <li>
+                                                                <div class="export-button m-l-10" matTooltip="AGREGAR">
+                                                                  <button mat-mini-fab color="primary" (click)="addNew()">
+                                                                    <mat-icon class="col-white">add</mat-icon>
+                                                                  </button>
+                                                                </div>
+                                                              </li>
+                                                              <li>
+                                                                <div class="export-button m-l-10" matTooltip="RECARGAR">
+                                                                  <button mat-mini-fab color="primary" (click)="refresh()">
+                                                                    <mat-icon class="col-white">refresh</mat-icon>
+                                                                  </button>
+                                                                </div>
+                                                              </li>
+                                                              <li>
+                                                                <div class="export-button m-l-10" hidden matTooltip="ELIMINAR">
+                                                                  <button mat-mini-fab color="warn">
+                                                                    <mat-icon class="col-white">delete
+                                                                    </mat-icon>
+                                                                  </button>
+                                                                </div>
+                                                              </li>
+                                                            </ul>
+                                                    </div>
+                                                    <div class="col-4" hidden>
+                                                        <ul class="header-buttons">
+                                                          <li>
+                                                            <div class="export-button m-l-10" matTooltip="XLSX">
+                                                              <img src="assets/images/icons/xlsx.png" alt=""
+                                                                 />
+                                                            </div>
+                                                          </li>
+                                                          <li>
+                                                            <div class="export-button m-l-10" matTooltip="CSV">
+                                                              <img src="assets/images/icons/csv.png" alt=""  />
+                                                            </div>
+                                                          </li>
+                                                          <li>
+                                                            <div class="export-button m-l-10" matTooltip="JSON">
+                                                              <img src="assets/images/icons/json.png" alt=""
+                                                                 />
+                                                            </div>
+                                                          </li>
+                                                          <li>
+                                                            <div class="export-button m-l-10" matTooltip="TXT">
+                                                              <img src="assets/images/icons/txt.png" alt=""  />
+                                                            </div>
+                                                          </li>
+                                                        </ul>                                                      
+                                                    </div>                                                    
+                                                </div>                                                
+                                            </div>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>                                                      
+                                                      <th>Ruta</th>
+                                                      <th>Título</th>
+                                                      <th>Nombre del Módulo</th>
+                                                      <th>Tipo de ícono</th>
+                                                      <th>Ícono</th>
+                                                      <th>Nombre de la clase</th>
+                                                      <th>Grupo</th>
+                                                      <th>Rol</th>
+                                                      <th>Editar</th>
+                                                      <th>Eliminar</th>
+                                                      <!-- <th>Ver Detalles</th> -->
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr *ngFor="let pp of perfilesList">                                                      
+                                                      <td> {{pp.path}}</td>
+                                                      <td> {{pp.title}}</td>
+                                                      <td> {{pp.moduleName}}</td>
+                                                      <td> {{pp.iconType}}</td>
+                                                      <td> {{pp.icon}}</td>
+                                                      <td> {{pp.class}}</td>
+                                                      <td> {{pp.groupTitle == 1?'SI':'NO'}}</td>
+                                                      <td> {{pp.idRole == 1? 'Admin':2?'Cliente':'Soporte'}}</td>
+                                                      <td>
+                                                        <button mat-icon-button color="accent" class="btn-tbl-edit" (click)="$event.stopPropagation()"
+                                                        (click)="editPerfil(pp)"
+                                                        >
+                                                        <mat-icon aria-label="Editar" class="col-white">edit</mat-icon>
+                                                      </button>
+                                                        </td>
+                                                        <td>
+                                                        <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                                                        (click)="deleteParameter(pp)"
+                                                            >
+                                                            <mat-icon aria-label="Eliminar" class="col-white">delete</mat-icon>
+                                                        </button>
+                                                        </td>
+                                                      <!-- <td>
+                                                        <button mat-icon-button color="accent" class="btn-tbl-confirm" (click)="$event.stopPropagation()"
+                                                        (click)="detailParameter(pp)"   
+                                                        >
+                                                            <mat-icon aria-label="Confirmar" class="col-white">note_add</mat-icon>
+                                                        </button>
+                                                        </td> -->
+                                                    </tr>
+                                                    
+                                                  </tbody>  
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>        
+    </div>
+</section>

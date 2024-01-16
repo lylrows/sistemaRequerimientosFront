@@ -1,0 +1,148 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                        {{dialogTitle}}
+                    </div>
+                </div>
+            </div>
+        </div>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+       
+    </div>
+        <div mat-dialog-content>
+            <form class="register-form m-4" [formGroup]="departmentForm" (ngSubmit)="submit">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Tipo de Empresa</mat-label>
+                                <mat-select formControlName="tipoEmpresa" disabled>
+                                <mat-icon matSuffix>assignment_late</mat-icon>
+                                <mat-option [value]="tipo.valorEntero" *ngFor="let tipo of tiposEmpresas">
+                                    {{tipo.nombre}}
+                                </mat-option>                               
+                              </mat-select>
+                              <mat-error *ngIf="departmentForm.get('tipoEmpresa').hasError('required')">
+                                Tipo de Empresa es requerido
+                                </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Tipo de Servicio</mat-label>
+                                <mat-select formControlName="tipoServicio" disabled>
+                                <mat-icon matSuffix>assignment_late</mat-icon>
+                                <mat-option [value]="ser.valorEntero" *ngFor="let ser  of tiposServicios">
+                                   {{ser.nombre}}
+                                </mat-option>                               
+                              </mat-select>
+                              <mat-error *ngIf="departmentForm.get('tipoServicio').hasError('required')">
+                                Tipo de Servicio es requerido
+                                </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Numero de RUC</mat-label>
+                            <input matInput formControlName="numeroRUC" readonly="true" maxlength="11">
+                            <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>
+                            <mat-error *ngIf="departmentForm.get('numeroRUC').hasError('required')" >
+                                RUC es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Razón Social</mat-label>
+                            <input matInput formControlName="razonSocial" readonly="true" maxlength="150">
+                            <mat-icon matSuffix>title</mat-icon>
+                            <mat-error *ngIf="departmentForm.get('razonSocial').hasError('required')">
+                                Razón Social es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Dirección</mat-label>
+                            <input matInput formControlName="direccion" required maxlength="150">
+                            <mat-icon matSuffix>directions</mat-icon>
+                            <mat-error *ngIf="departmentForm.get('direccion').hasError('required')">
+                                Dirección es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>URL Web</mat-label>
+                            <input matInput formControlName="urlWeb" required maxlength="50">
+                            <mat-icon matSuffix>link</mat-icon>
+                            <mat-error *ngIf="departmentForm.get('urlWeb').hasError('required')">
+                                URL Web es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Nombre del contacto</mat-label>
+                            <input matInput formControlName="nombreContacto" required maxlength="150">
+                            <mat-icon matSuffix>contacts</mat-icon>
+                            <mat-error *ngIf="departmentForm.get('nombreContacto').hasError('required')">
+                                Nomber del contacto es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>email del contacto</mat-label>
+                            <input matInput formControlName="emailContacto" required maxlength="50">
+                            <mat-icon matSuffix>contact_mail</mat-icon>
+                            <mat-error *ngIf="departmentForm.get('emailContacto').hasError('required')">
+                                email del contacto es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Observación</mat-label>
+                            <input matInput formControlName="observacion" required maxlength="250">
+                            <mat-icon matSuffix>forum</mat-icon>
+                            <mat-error *ngIf="departmentForm.get('observacion').hasError('required')">
+                                Observación es requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline" hidden>
+                            <mat-label>Activo</mat-label>
+                            <mat-select formControlName="esActivo" disabled>
+                                <mat-icon matSuffix>notifications_active</mat-icon>                            
+                                <mat-option [value]=1 >
+                                   SI
+                                </mat-option>    
+                                <mat-option [value]=0>
+                                    NO
+                                 </mat-option>                            
+                            </mat-select>
+                            <mat-error *ngIf="departmentForm.get('esActivo').hasError('required')">
+                                Seleccione una opción
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="example-button-row">
+                            <button mat-raised-button color="primary" [type]="submit" [disabled]="!departmentForm.valid"
+                                [mat-dialog-close]="1" (click)="confirmAdd()">Actualizar</button>
+                            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+</div>

@@ -1,0 +1,150 @@
+<div class="addContainer">
+    <div class="modalHeader">
+        <div class="editRowModal">
+            <div class="modalHeader clearfix">
+                <div class="modal-about">
+                    <div class="font-weight-bold p-t-5 font-17">
+                        <!-- Sistemas asociados :  {{data.razonSocial}} -->
+                        Actividades de la mejora
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content>
+        <form class="register-form m-4">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="align-items: center; text-align: center">Id</th>
+                                <th style="align-items: center; text-align: center">Id mejora</th>
+                                <th style="align-items: center; text-align: center">Descripción</th>
+                                <th style="align-items: center; text-align: center">Fecha</th>
+                                <th style="align-items: center; text-align: center">Horas</th>
+                                <th style="align-items: center; text-align: center">Actividad</th>
+                                <!-- <th style="align-items: center; text-align: center">Acciones</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ss of systemList">
+                                <td style="align-items: center; text-align: center"> {{ss.id}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.idMejora}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.descripcion}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.fechaActividad | date: 'dd/MM/yyyy'}}</td>
+                                <td style="align-items: center; text-align: center"> {{ss.horasActividad}}</td>
+                                <!-- <td style="align-items: center; text-align: center"> {{ss.horasContratadas}}</td> -->
+                                <td style="align-items: center; text-align: center"> 
+                                    <button mat-icon-button (click)="editCall(ss)"
+                                    class="tbl-action-btn">
+                                    <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                                  </button>
+                                  <button mat-icon-button (click)="deleteItem(ss)"
+                                    class="tbl-action-btn">
+                                    <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                                  </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" [hidden]="asociarBoolButton">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-button-row" style="align-items: center; text-align: center">
+                        <button mat-raised-button color="accent" 
+                           (click)="asociarSistema()">Registrar actividad</button>                        
+                    </div>
+                </div>
+            </div>
+            <form [hidden]="asociarBool" class="register-form m-4" [formGroup]="sistemaForm" (ngSubmit)="submit">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Fecha</mat-label>
+                            <input matInput formControlName="codigo"[matDatepicker]="picker" [max]="toDay">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="sistemaForm.get('codigo').hasError('required')">Fecha es requerido</mat-error>  
+                          </mat-form-field>
+                    </div>
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Nombre Sistema</mat-label>
+                            <input matInput formControlName="nombreSistema" maxlength="150">
+                            <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>                           
+                        </mat-form-field>
+                    </div> -->
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Descripcion</mat-label>
+                            <input matInput formControlName="descripcion" maxlength="250">
+                            <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>                           
+                        </mat-form-field>
+                    </div> -->
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Tipo de Sistema</mat-label>
+                                <mat-select formControlName="tipoSistema" >
+                                <mat-icon matSuffix>assignment_late</mat-icon>
+                                <mat-option [value]="tipo.valorEntero" *ngFor="let tipo of tiposSistema">
+                                    {{tipo.nombre}}
+                                </mat-option>                               
+                            </mat-select>                           
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                            <mat-label>Horas</mat-label>
+                            <input matInput formControlName="horasContratadas"  type="number" max="8">
+                            <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>     
+                            <mat-error *ngIf="sistemaForm.get('horasContratadas').hasError('max')">No debe ser mayor a 8 horas</mat-error>  
+                            <mat-error *ngIf="sistemaForm.get('horasContratadas').hasError('min')">No debe ser cero</mat-error>  
+                            <mat-error *ngIf="sistemaForm.get('horasContratadas').hasError('required')">Horas es requerido</mat-error>                       
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Actividades</mat-label>
+                          <textarea cols="40" rows="4" matInput placeholder="Escribe solución" formControlName="descripcion" required maxlength="255"></textarea>
+                          <mat-error *ngIf="sistemaForm.get('descripcion').hasError('required')">
+                            Actividades es requerido
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <div class="example-button-row" style="align-items: center; text-align: center">
+                            <button mat-raised-button color="primary" [disabled]="!sistemaForm.valid"
+                                (click)="confirmAdd()" [hidden]="actualiza == false">Guardar</button>
+                                <button class="btn-space" (click)="putMejora()" mat-raised-button color="primary" [hidden]="actualiza">Actualizar</button>
+                            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row" [hidden]="deleteBool">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div>
+                        <a><strong>¿Está Seguro de eliminar el registro? {{nombre}}</strong></a>
+                    </div>
+                    <br>
+                    
+                    <div class="example-button-row" style="align-items: center; text-align: center">
+                        <button mat-raised-button color="primary" (click)="confirmDelete()">Si Eliminar</button>
+                        <button mat-raised-button color="warn" (click)="cancelDelete()" tabindex="-1">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+   
+</div>

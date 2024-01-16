@@ -1,0 +1,905 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <!-- Widgets -->
+    <div class="row" hidden>
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="body">
+            <div class="row align-items-center">
+              <div class="col-md-4 mb-0">
+                <div class="recent-report__chart">
+                  <canvas baseChart height="200px" width="200px" class="chart" [data]="doughnutChartData"
+                    [labels]="doughnutChartLabels" [options]="doughnutChartOptions" [chartType]="doughnutChartType"
+                    [colors]="doughnutChartColors"></canvas>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <h4>
+                  <div class="weight-600 col-pink pt-1">Good Job, Sarah. Keep Going!! </div>
+                </h4>
+                <p class="font-15 max-width-600">You task are 80% completed this week. Keep it up and improve your
+                  result. Progress is very good!!!</p>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div><i class="fa fa-circle dot1 msr-2"></i> Development - 1 hour 50 Mins</div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div><i class="fa fa-circle dot2 msr-2"></i> Java Class - 50 Mins</div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div><i class="fa fa-circle dot3 msr-2"></i> painting - 1 hour 20 Mins</div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div><i class="fa fa-circle dot4 msr-2"></i> Geography Class - 30 Mins</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card l-bg-purple p-2 px-4 text-white py-3">
+          <div class="info d-flex justify-content-between align-items-center">
+            <div class="d-flex flex-column text-white font-22"> <span>English Vocabulary Test</span>
+              <small class="mt-2"><i class="far fa-clock msr-2"></i> 25, Feb, 2020. 04:00 PM</small> </div>
+          </div>
+        </div>
+        <div class="card l-bg-green p-2 px-4 text-white py-3">
+          <div class="info d-flex justify-content-between align-items-center">
+            <div class="d-flex flex-column text-white font-22"> <span>Science Homework Submition</span>
+              <small class="mt-2"><i class="far fa-clock msr-2"></i> 28, Feb, 2020. 10:00 AM</small> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #END# Widgets -->
+    <div class="row" hidden>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Your Progress</h2>
+          </div>
+          <div class="tableBody">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Progress</th>
+                    <th>Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Chemistry</td>
+                    <td>30%<mat-progress-bar mode="determinate" value="30" color="warn"></mat-progress-bar>
+                    </td>
+                    <td>2 Months</td>
+                  </tr>
+                  <tr>
+                    <td>Mathematics</td>
+                    <td>55%<mat-progress-bar mode="determinate" value="55"></mat-progress-bar>
+                    </td>
+                    <td>3 Months</td>
+                  </tr>
+                  <tr>
+                    <td>Painting</td>
+                    <td>67%<mat-progress-bar mode="determinate" value="67"></mat-progress-bar>
+                    </td>
+                    <td>1 Months</td>
+                  </tr>
+                  <tr>
+                    <td>Business studies</td>
+                    <td>70%<mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+                    </td>
+                    <td>2 Months</td>
+                  </tr>
+                  <tr>
+                    <td>Biology</td>
+                    <td>24%<mat-progress-bar mode="determinate" value="24" color="warn"></mat-progress-bar>
+                    </td>
+                    <td>3 Months</td>
+                  </tr>
+                  <tr>
+                    <td>Computer studies</td>
+                    <td>77%<mat-progress-bar mode="determinate" value="77"></mat-progress-bar>
+                    </td>
+                    <td>4 Months</td>
+                  </tr>
+                  <tr>
+                    <td>Geography</td>
+                    <td>41%<mat-progress-bar mode="determinate" value="41" color="warn"></mat-progress-bar>
+                    </td>
+                    <td>2 Months</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Time Spent On Learning</h2>
+          </div>
+          <div class="body">
+            <apx-chart [series]="barChartOptions.series"  [chart]="barChartOptions.chart"
+              [dataLabels]="barChartOptions.dataLabels" [plotOptions]="barChartOptions.plotOptions"
+              [responsive]="barChartOptions.responsive" [xaxis]="barChartOptions.xaxis"
+              [legend]="barChartOptions.legend" [fill]="barChartOptions.fill"></apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              Upcomming Class
+            </h2>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder"
+              style="position: relative; max-height: 335px;" [perfectScrollbar]>
+              <li class="lecture-list">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/user/usrbig1.jpg">
+                <div class="set-flex">
+                  <div class="media-title font-16">Cara Stevens</div>
+                  <div class="text-job text-muted mb-0">Mathematics</div>
+                </div>
+                <div class="ms-auto">
+                  <div class="media-title font-16">12 June '20</div>
+                  <div class="text-job text-muted mb-0">09:00-10:00</div>
+                </div>
+              </li>
+              <li class="lecture-list">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/user/usrbig2.jpg">
+                <div class="set-flex">
+                  <div class="media-title font-16">Airi Satou</div>
+                  <div class="text-job text-muted mb-0">Computer Studies</div>
+                </div>
+                <div class="ms-auto">
+                  <div class="media-title font-16">13 June '20</div>
+                  <div class="text-job text-muted mb-0">11:00-12:00</div>
+                </div>
+              </li>
+              <li class="lecture-list">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/user/usrbig3.jpg">
+                <div class="set-flex">
+                  <div class="media-title font-16">Jens Brincker</div>
+                  <div class="text-job text-muted mb-0">Geography</div>
+                </div>
+                <div class="ms-auto">
+                  <div class="media-title font-16">15 June '20</div>
+                  <div class="text-job text-muted mb-0">09:30-10:30</div>
+                </div>
+              </li>
+              <li class="lecture-list">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/user/usrbig4.jpg">
+                <div class="set-flex">
+                  <div class="media-title font-16">Angelica Ramos</div>
+                  <div class="text-job text-muted mb-0">Chemistry</div>
+                </div>
+                <div class="ms-auto">
+                  <div class="media-title font-16">16 June '20</div>
+                  <div class="text-job text-muted mb-0">14:00-15:00</div>
+                </div>
+              </li>
+              <li class="lecture-list">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/user/usrbig5.jpg">
+                <div class="set-flex">
+                  <div class="media-title font-16">Cara Stevens</div>
+                  <div class="text-job text-muted mb-0">Painting</div>
+                </div>
+                <div class="ms-auto">
+                  <div class="media-title font-16">18 June '20</div>
+                  <div class="text-job text-muted mb-0">11:00-12:30</div>
+                </div>
+              </li>
+              <li class="lecture-list">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/user/usrbig6.jpg">
+                <div class="set-flex">
+                  <div class="media-title font-16">Jacob Ryan</div>
+                  <div class="text-job text-muted mb-0">Business Studies</div>
+                </div>
+                <div class="ms-auto">
+                  <div class="media-title font-16">22 June '20</div>
+                  <div class="text-job text-muted mb-0">13:00-14:15</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix" hidden>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+          <div class="header">
+            <h2>Test Results</h2>
+          </div>
+          <div class="body">
+            <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
+              [xaxis]="areaChartOptions.xaxis" [yaxis]="areaChartOptions.yaxis" [colors]="areaChartOptions.colors"
+              [stroke]="areaChartOptions.stroke" [legend]="areaChartOptions.legend" [tooltip]="areaChartOptions.tooltip"
+              [dataLabels]="areaChartOptions.dataLabels"></apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="header">
+            <h2>Assignments</h2>
+          </div>
+          <div class="body">
+            <div class="doc-file-type">
+              <ul class="list-unstyled" style="position: relative; max-height: 285px;" [perfectScrollbar]>
+                <li class="d-flex mb-3">
+                  <span class="msr-3 align-self-center img-icon primary-rgba text-primary"><i
+                      class="far fa-file-word"></i></span>
+                  <div class="set-flex">
+                    <h5 class="font-16 mb-1">Java Programming</h5>
+                    <p>.doc, 4.3 MB</p>
+                  </div>
+                  <div class="ms-auto">
+                    <td>
+                      <i class="far fa-trash-alt psr-3"></i>
+                      <i class="far fa-arrow-alt-circle-down"></i>
+                    </td>
+                  </div>
+                </li>
+                <li class="d-flex mb-3">
+                  <span class="msr-3 align-self-center img-icon success-rgba text-success"><i
+                      class="far fa-file-excel"></i></span>
+                  <div class="set-flex">
+                    <h5 class="font-16 mb-1">Angular Theory</h5>
+                    <p>.xls, 2.5 MB</p>
+                  </div>
+                  <div class="ms-auto">
+                    <td>
+                      <i class="far fa-trash-alt psr-3"></i>
+                      <i class="far fa-arrow-alt-circle-down"></i>
+                    </td>
+                  </div>
+                </li>
+                <li class="d-flex mb-3">
+                  <span class="msr-3 align-self-center img-icon danger-rgba text-danger"><i
+                      class="far fa-file-pdf"></i></span>
+                  <div class="set-flex">
+                    <h5 class="font-16 mb-1">Maths Sums Solution</h5>
+                    <p>.pdf, 10.5 MB</p>
+                  </div>
+                  <div class="ms-auto">
+                    <td>
+                      <i class="far fa-trash-alt psr-3"></i>
+                      <i class="far fa-arrow-alt-circle-down"></i>
+                    </td>
+                  </div>
+                </li>
+                <li class="d-flex mb-3">
+                  <span class="msr-3 align-self-center img-icon info-rgba text-info"><i
+                      class="far fa-file-archive"></i></span>
+                  <div class="set-flex">
+                    <h5 class="font-16 mb-1">Submit Science Journal</h5>
+                    <p>.zip, 53.2 MB</p>
+                  </div>
+                  <div class="ms-auto">
+                    <td>
+                      <i class="far fa-trash-alt psr-3"></i>
+                      <i class="far fa-arrow-alt-circle-down"></i>
+                    </td>
+                  </div>
+                </li>
+                <li class="d-flex mb-3">
+                  <span class="msr-3 align-self-center img-icon primary-rgba text-primary"><i
+                      class="far fa-file-word"></i></span>
+                  <div class="set-flex">
+                    <h5 class="font-16 mb-1">Marketing Instructions</h5>
+                    <p>.doc, 5.3 MB</p>
+                  </div>
+                  <div class="ms-auto">
+                    <td>
+                      <i class="far fa-trash-alt psr-3"></i>
+                      <i class="far fa-arrow-alt-circle-down"></i>
+                    </td>
+                  </div>
+                </li>
+              </ul>
+              <div class="text-center p-t-20">
+                <button mat-stroked-button color="primary">Report Adverse Effect</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix" hidden>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="header">
+            <h2>Notice Board</h2>
+          </div>
+          <div class="body">
+            <div class="recent-comment" style="position: relative; max-height: 370px;" [perfectScrollbar]>
+              <div class="notice-board">
+                <div class="table-img">
+                  <img class="notice-object" src="assets/images/user/user6.jpg" alt="...">
+                </div>
+                <div class="notice-body">
+                  <h5 class="notice-heading col-green">Airi Satou</h5>
+                  <p>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam.</p>
+                  <small class="text-muted">7 hours ago</small>
+                </div>
+              </div>
+              <div class="notice-board">
+                <div class="table-img">
+                  <img class="notice-object" src="assets/images/user/user4.jpg" alt="...">
+                </div>
+                <div class="notice-body">
+                  <h5 class="notice-heading color-primary col-indigo">Sarah Smith</h5>
+                  <p>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam.</p>
+                  <p class="comment-date">1 hour ago</p>
+                </div>
+              </div>
+              <div class="notice-board">
+                <div class="table-img">
+                  <img class="notice-object" src="assets/images/user/user3.jpg" alt="...">
+                </div>
+                <div class="notice-body">
+                  <h5 class="notice-heading color-danger col-cyan">Cara Stevens</h5>
+                  <p>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam.</p>
+                  <div class="comment-date">Yesterday</div>
+                </div>
+              </div>
+              <div class="notice-board no-border">
+                <div class="table-img">
+                  <img class="notice-object" src="assets/images/user/user7.jpg" alt="...">
+                </div>
+                <div class="notice-body">
+                  <h5 class="notice-heading color-info col-orange">Ashton Cox</h5>
+                  <p>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam.</p>
+                  <div class="comment-date">Yesterday</div>
+                </div>
+              </div>
+              <div class="notice-board">
+                <div class="table-img">
+                  <img class="notice-object" src="assets/images/user/user5.jpg" alt="...">
+                </div>
+                <div class="notice-body">
+                  <h5 class="notice-heading color-primary col-indigo">Jay Soni</h5>
+                  <p>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam.</p>
+                  <p class="comment-date">1 hour ago</p>
+                </div>
+              </div>
+              <div class="notice-board">
+                <div class="table-img">
+                  <img class="notice-object" src="assets/images/user/user6.jpg" alt="...">
+                </div>
+                <div class="notice-body">
+                  <h5 class="notice-heading color-primary col-indigo">Veena Pandit</h5>
+                  <p>Lorem ipsum dolor sit amet, id quo eruditi eloquentiam.</p>
+                  <p class="comment-date">1 hour ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+          <div class="header">
+            <h2>Library Book Issue List</h2>
+          </div>
+          <div class="tableBody">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Book ID</th>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Issue Date</th>
+                    <th>Status</th>
+                    <th>Return Date</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AI99876</td>
+                    <td>Computer Programming</td>
+                    <td>John Deo</td>
+                    <td>10-03-2019</td>
+                    <td><span class="badge badge-solid-green">Issue</span></td>
+                    <td>23-03-2019</td>
+                    <td> <button mat-stroked-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>BT67657</td>
+                    <td>Design Pattern In java</td>
+                    <td>Airi Satou</td>
+                    <td>14-04-2019</td>
+                    <td><span class="badge badge-solid-orange">Return</span></td>
+                    <td>28-04-2019</td>
+                    <td> <button mat-stroked-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>RT67013</td>
+                    <td>The Mathematics Principles</td>
+                    <td>Angelica Ramos</td>
+                    <td>17-04-2019</td>
+                    <td><span class="badge badge-solid-green">Issue</span></td>
+                    <td>24-04-2019</td>
+                    <td> <button mat-stroked-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PS2398</td>
+                    <td>Angular 10 Advance</td>
+                    <td>Jens Brincker</td>
+                    <td>21-04-2019</td>
+                    <td><span class="badge badge-solid-green">Issue</span></td>
+                    <td>29-04-2019</td>
+                    <td> <button mat-stroked-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>MO4987</td>
+                    <td>SEO Optimazation</td>
+                    <td>Cara Stevens</td>
+                    <td>11-05-2019</td>
+                    <td><span class="badge badge-solid-orange">Return</span></td>
+                    <td>18-05-2019</td>
+                    <td> <button mat-stroked-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>BE2876</td>
+                    <td>Android Basic Concept</td>
+                    <td>Jacob Ryan</td>
+                    <td>15-05-2019</td>
+                    <td><span class="badge badge-solid-green">Issue</span></td>
+                    <td>21-05-2019</td>
+                    <td> <button mat-stroked-button color="primary">Details</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="row" [hidden]="users.isGerente">
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-blue order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets del año</h6>
+            <h2 class="text-end"><i class="fas fa-tasks float-start"></i><span>{{anho[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayorAnho}}{{anhoPor[0]}}% {{parrafoAnho}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-green order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets del mes</h6>
+            <h2 class="text-end"><i class="fas fa-business-time float-start"></i><span>{{mes[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayorMes}}{{mesPor[0]}}% {{parrafoMes}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-yellow order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets de la semana</h6>
+            <h2 class="text-end"><i class="fas fa-file-alt float-start"></i><span>{{semana[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayorSemana}}{{semanaPor[0]}}% {{parrafoSemana}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-pink order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets del día</h6>
+            <h2 class="text-end"><i class="fas fa-list-alt float-start"></i><span>{{dia[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayor}}{{diaPor[0]}}% {{parrafo}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row clearfix" [hidden]="users.isGerente">
+      <!-- Bar chart -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Estado de los tickets</h2>
+            </div>
+            <div class="body">
+              <div class="recent-report__chart">
+                <canvas baseChart class="chart" [data]="polarAreaChartData" [options]="polarChartOptions"
+                  [labels]="polarAreaChartLabels" [legend]="polarAreaLegend" [chartType]="polarAreaChartType"
+                  [colors]="ploarChartColors"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- Graph Line Chart -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Ticket por sistema</h2>
+          </div>
+          <div class="body">
+            <div echarts [options]="graph_line_chart_Gerente" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOPORTE GERENTE -->
+    <div class="row clearfix" [hidden]="!users.isGerente">
+      <form class="register-form m-4" [formGroup]="filterFormsSoporte">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <h2><strong>Soporte</strong></h2></div>
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                <mat-label>Personal</mat-label>
+                <mat-select formControlName="idEmpresa"  (selectionChange)="selectSoporte($event)">
+                  <mat-icon matSuffix>file_copy</mat-icon>
+                  <mat-option [value]="-1">Todos</mat-option>
+                  <mat-option  [value]="doc.idEmpresa" *ngFor="let doc of sistemasListSoporte" >
+                    {{doc.razonSocial}}
+                  </mat-option>              
+                </mat-select>                                                                         
+              </mat-form-field>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <button mat-raised-button type="button" color="primary" mat-button (click)="searchSoporte()"
+              >Buscar</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+    <div class="row" [hidden]="!users.isGerente">
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-blue order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets del año</h6>
+            <h2 class="text-end"><i class="fas fa-tasks float-start"></i><span>{{anhoGerente[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayorAnhoGerente}}{{anhoPorGerente[0]}}% {{parrafoAnhoGerente}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-green order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets del mes</h6>
+            <h2 class="text-end"><i class="fas fa-business-time float-start"></i><span>{{mesGerente[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayorMesGerente}}{{mesPorGerente[0]}}% {{parrafoMesGerente}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-yellow order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets de la semana</h6>
+            <h2 class="text-end"><i class="fas fa-file-alt float-start"></i><span>{{semanaGerente[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayorSemanaGerente}}{{semanaPorGerente[0]}}% {{parrafoSemanaGerente}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="info-box7 bg-c-pink order-info-box7">
+          <div class="info-box7-block">
+            <h6 class="m-b-20">Tickets del día</h6>
+            <h2 class="text-end"><i class="fas fa-list-alt float-start"></i><span>{{diaGerente[0]}}</span></h2>
+            <p class="m-b-0 font-13">{{parrafoMayorGerente}}{{diaPorGerente[0]}}% {{parrafoGerente}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row clearfix" [hidden]="!users.isGerente">
+      <!-- Bar chart -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Estado de los tickets</h2>
+            </div>
+            <div class="body">
+              <div class="recent-report__chart">
+                <canvas baseChart class="chart" [data]="polarAreaChartData1" [options]="polarChartOptions"
+                  [labels]="polarAreaChartLabels1" [legend]="polarAreaLegend" [chartType]="polarAreaChartType"
+                  [colors]="ploarChartColors"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- Graph Line Chart -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Ticket por sistema</h2>
+          </div>
+          <div class="body">
+            <div echarts [options]="graph_line_chart" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row clearfix" [hidden]="!users.isGerente">
+      <form class="register-form m-4" [formGroup]="filterFormsSoporte">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <h2><strong>Cliente</strong></h2></div>
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                <mat-label>Empresa</mat-label>
+                <mat-select formControlName="idSistema"  (selectionChange)="selectEmpresa($event)">
+                  <mat-icon matSuffix>file_copy</mat-icon>
+                  <mat-option [value]="-1">Todas la empresas</mat-option>
+                  <mat-option  [value]="emp.id" *ngFor="let emp of sistemasListSoporteCliente" >
+                    {{emp.razonSocial}}
+                  </mat-option>              
+                </mat-select>                                                                         
+              </mat-form-field>
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- DASH DE CLIENTES -->
+    <div [hidden]="!users.isGerente">
+      <form class="register-form m-4" [formGroup]="filterForms" >
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+            <h2>Atención de solicitudes</h2>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione año</mat-label>
+                <mat-select  formControlName="fechaini">
+                  <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                    {{pp.id}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione mes</mat-label>
+                <mat-select  formControlName="fechafin">
+                  <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                    {{pp.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> 
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <button mat-raised-button type="button" color="primary" mat-button (click)="search()"
+              >Buscar</button>
+            </div>
+          </div>
+          <div class="body">
+            <div echarts [options]="graph_line_chart_cliente" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div [hidden]="!users.isGerente">
+    <form class="register-form m-4" [formGroup]="filterForms2">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+            <h2>Tickets por sistema</h2></div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione año</mat-label>
+                <mat-select  formControlName="fechainiSe">
+                  <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                    {{pp.id}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione mes</mat-label>
+                <mat-select  formControlName="fechafinSe">
+                  <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                    {{pp.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>          
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2"> 
+              <button mat-raised-button type="button" color="primary" mat-button (click)="searchSistema()"
+                               >Buscar</button>
+            </div>
+          </div>
+          <div class="body">
+              <div echarts [options]="bar_chart" class="echart-height"></div>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div [hidden]="!users.isGerente">
+    <form class="register-form m-4" [formGroup]="filterforms4" >
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+            <h2>Tickets pendientes</h2></div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione año</mat-label>
+                <mat-select  formControlName="anho">
+                  <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                    {{pp.id}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Seleccione mes</mat-label>
+                <mat-select  formControlName="mesSol">
+                  <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                    {{pp.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> 
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Tipificación</mat-label>
+              <mat-select formControlName="tipif" multiple>
+                <mat-option *ngFor="let tipif of listTipEmpresa" [value]="tipif.idTipificacion">{{tipif.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <button mat-raised-button type="button" color="primary" mat-button (click)="searchPendientes()"
+                               >Buscar</button>
+            </div>
+          </div>
+          <div class="body">
+            <div echarts [options]="graph_line_chartCuarto" class="echart-height"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form class="register-form m-4" [formGroup]="filterForms3" >
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div  class="card" >
+          <div class="header">            
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+              <mat-form-field appearance="outline">
+                <mat-label>Empresa</mat-label>
+                <mat-select formControlName="idEmpresa" required>
+                  <mat-icon matSuffix>file_copy</mat-icon>                  
+                  <mat-option  [value]="emp.id" *ngFor="let emp of sistemasListSoporteCliente" >
+                    {{emp.razonSocial}}
+                  </mat-option>              
+                </mat-select>        
+              </mat-form-field>
+            </div>
+             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+              <mat-form-field appearance="outline">  
+                <mat-label>Fecha inicio</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="fechaInicio" required [max]="maxDateInicio" (dateChange)="onChangeFechaInicio()">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>                
+              </mat-form-field>
+            </div> 
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+              <mat-form-field appearance="outline">              
+                <mat-label>Fecha fin</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="fechaFin" required  [max]="maxDateFin">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>                
+              </mat-form-field>
+            </div>         
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <button mat-raised-button type="button" color="primary" mat-button (click)="searchANS()" [disabled]="!filterForms3.valid"
+                               >Buscar</button>
+            </div>              
+          </div>          
+            <div class="body" style="align-items: center; text-align: center">
+              <div class="recent-report__chart">
+                <h4 class="header">Cumplimiento de ANS </h4>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"  [hidden]="activa">
+                  <h5 class="text-center">Porcentaje de cumplimiento {{mesObj.text}}</h5>
+                  <ngx-gauge [value]="gaugeValue" [size]="gaugeSize" [type]="guageType1" [thick]="guageThick"
+                    class="guage-chart-center" style="text-align: center;">
+                    <ngx-gauge-append>
+                      <span class="font-15">%</span>
+                    </ngx-gauge-append>
+                    <ngx-gauge-label>
+                      ANS
+                    </ngx-gauge-label>
+                    <ngx-gauge-value>
+                      {{gaugeValue}}
+                    </ngx-gauge-value>
+                  </ngx-gauge>
+                </div>                
+              </div>
+              <div echarts [options]="graph_line_chart_soporte" class="echart-height"></div>
+            </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div hidden>
+      <form class="register-form m-4" [formGroup]="filterFormsSis" >
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+              <h2>Horas asignadas por sistemas</h2>
+              </div>
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Seleccione año</mat-label>
+                  <mat-select  formControlName="anho">
+                    <mat-option *ngFor="let pp of tiempo" [value]="pp.id">
+                      {{pp.id}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Seleccione mes</mat-label>
+                  <mat-select  formControlName="mes">
+                    <mat-option *ngFor="let pp of meses" [value]="pp.value">
+                      {{pp.text}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div> 
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2">
+                <button mat-raised-button type="button" color="primary" mat-button (click)="searchSistemas()"
+                                 >Buscar</button>
+              </div>
+            </div>
+            <div class="body">
+              <div echarts [options]="graph_line_chart1" class="echart-height"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+      
+      </div>
+
+
+  </div>
+</section>
